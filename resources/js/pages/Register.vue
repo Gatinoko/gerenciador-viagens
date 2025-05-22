@@ -41,7 +41,7 @@ defineProps({ appName: String });
             <!-- Auxiliary text -->
             <p>
                 Já possui uma conta?
-                <Link href="./register" class="text-blue-400 underline"
+                <Link href="./login" class="text-blue-400 underline"
                     >Faça login aqui</Link
                 >
             </p>
