@@ -3,12 +3,15 @@ import { Link } from "@inertiajs/vue3";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import AppLayout from "@/layouts/AppLayout.vue";
+import Header from "@/components/Header.vue";
 
 defineProps({ appName: String });
 </script>
 
 <template>
     <AppLayout>
+        <Header text="Registro" />
+
         <div
             class="p-10 w-200 self-center bg-neutral-300 rounded-xl border-1 border-neutral-400"
         >
