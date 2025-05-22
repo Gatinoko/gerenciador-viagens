@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
+import { Link } from "@inertiajs/vue3";
+import AppLayout from "@/layouts/AppLayout.vue";
 
 defineProps({ appName: String });
 </script>
 
 <template>
-    <div class="p-6 text-gray-900 bg-red-400">
+    <AppLayout>
         <h1>Welcome to {{ appName }}</h1>
-        <Button>Test button</Button>
-    </div>
+        <h2>This is the index. TODO.</h2>
+    </AppLayout>
 </template>
