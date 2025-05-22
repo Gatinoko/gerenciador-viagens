@@ -8,3 +8,9 @@ Route::get('/', function () {
         'appName' => config('app.name'),
     ]);
 });
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard', [
+        'appName' => config('app.name'),
+    ]);
+});
