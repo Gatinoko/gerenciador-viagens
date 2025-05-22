@@ -4,7 +4,7 @@ import { Link } from "@inertiajs/vue3";
 </script>
 
 <template>
-    <nav class="bg-neutral-500 p-2">
+    <nav class="bg-neutral-500 p-2 flex justify-between">
         <ul class="flex gap-1">
             <li>
                 <Link href="./dashboard">
@@ -14,6 +14,19 @@ import { Link } from "@inertiajs/vue3";
             <li>
                 <Link href="/">
                     <Button>Index</Button>
+                </Link>
+            </li>
+        </ul>
+
+        <ul class="flex gap-1">
+            <li>
+                <Link href="/login">
+                    <Button>Login</Button>
+                </Link>
+            </li>
+            <li>
+                <Link href="/register">
+                    <Button>Register</Button>
                 </Link>
             </li>
         </ul>

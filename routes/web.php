@@ -14,3 +14,15 @@ Route::get('/dashboard', function () {
         'appName' => config('app.name'),
     ]);
 });
+
+Route::get('/login', function () {
+    return Inertia::render('Login', [
+        'appName' => config('app.name'),
+    ]);
+});
+
+Route::get('/register', function () {
+    return Inertia::render('Register', [
+        'appName' => config('app.name'),
+    ]);
+});
