@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { Button } from "@/components/ui/button";
 
 defineProps({ appName: String });
 </script>
@@ -7,5 +7,6 @@ defineProps({ appName: String });
 <template>
     <div class="p-6 text-gray-900 bg-red-400">
         <h1>Welcome to {{ appName }}</h1>
+        <Button>Test button</Button>
     </div>
 </template>
