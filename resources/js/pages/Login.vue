@@ -1,10 +1,21 @@
 <script setup lang="ts">
 import AppLayout from "@/layouts/AppLayout.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Header from "@/components/Header.vue";
 
+const form = useForm({
+    email: "",
+    password: "",
+});
+
+function submit() {
+    form.clearErrors();
+    form.post("/login");
+}
+
+const { appName, errors } = defineProps({ appName: String, errors: Object });
 const page = usePage<{ flash: { message: string } }>();
 </script>
 
@@ -19,26 +30,44 @@ const page = usePage<{ flash: { message: string } }>();
             <span class="text-green-600" v-if="page.props.flash.message">{{
                 page.props.flash.message
             }}</span>
+
+            <!-- Login error message -->
+            <span class="text-red-600" v-if="errors?.credentials">
+                {{ errors.credentials }}
+            </span>
+
+            <!-- Login form -->
+            <form @submit.prevent="submit" novalidate>
                 <div>
                     <Label for="email" class="text-right"> Email </Label>
                     <Input
-                        class="col-span-3"
                         id="email"
+                        class="col-span-3"
+                        type="email"
                         placeholder="exemplo@gmail.com"
+                        v-model="form.email"
                     />
+                    <span class="text-red-600" v-if="errors?.email">{{
+                        errors?.email
+                    }}</span>
                 </div>
                 <div>
                     <Label for="senha" class="text-right"> Senha </Label>
                     <Input
-                        class="col-span-3"
                         id="password"
+                        class="col-span-3"
+                        type="text"
                         placeholder="senha123"
+                        v-model="form.password"
                     />
+                    <span class="text-red-600" v-if="errors?.password">{{
+                        errors?.password
+                    }}</span>
                 </div>
-            </form>
 
-            <!-- Register button -->
-            <Button>Login</Button>
+                <!-- Login button -->
+                <Button>Login</Button>
+            </form>
 
             <!-- Auxiliary text -->
             <p>

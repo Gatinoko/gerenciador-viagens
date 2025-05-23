@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -22,7 +23,26 @@ class AuthController extends Controller {
         ]);
     }
 
-    public function login(Request $request) { }
+    public function login(Request $request) {
+        // Validates input
+        $validated = $request->validate([
+            "email" => ['required', 'email', 'max:255'],
+            "password" => ['required', 'string'],
+        ]);
+
+        // Logs user in
+        if (Auth::attempt($validated)) {
+            // Regenerates session id for security
+            $request->session()->regenerate();
+
+            // Redirect user to X if successful, otherwise return error
+            return to_route("show.dashboard");
+        }
+
+        throw ValidationException::withMessages([
+            'credentials' => 'Incorrect credentials.'
+        ]);
+    }
 
     public function register(Request $request) {
         // Validates input
