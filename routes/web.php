@@ -7,13 +7,13 @@ Route::get('/', function () {
     return Inertia::render('Index', [
         'appName' => config('app.name'),
     ]);
-});
+})->name("show.index");
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
         'appName' => config('app.name'),
     ]);
-});
+})->name("show.dashboard");
 
 Route::get('/login', function () {
     return Inertia::render('Login', [
