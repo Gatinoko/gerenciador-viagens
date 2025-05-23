@@ -22,6 +22,11 @@ import { Link } from "@inertiajs/vue3";
 
         <ul class="flex gap-1">
             <li>
+                <Link href="/logout" method="post">
+                    <Button>Logout</Button>
+                </Link>
+            </li>
+            <li>
                 <Link href="/login">
                     <Button>Login</Button>
                 </Link>

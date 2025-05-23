@@ -41,4 +41,16 @@ class AuthController extends Controller {
         // Redirects user to index
         return to_route('show.login')->with('message', 'success');
     }
+
+    public function logout(Request $request) {
+        // Logs out user
+        Auth::logout();
+
+        // Remove all data from the session
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirects user to login page and flash message
+        return to_route('show.login')->with('message', 'logged out');
+    }
 }
