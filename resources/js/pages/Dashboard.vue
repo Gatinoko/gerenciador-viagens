@@ -20,13 +20,15 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import AppLayout from "@/layouts/AppLayout.vue";
+import Header from "@/components/Header.vue";
 
 defineProps({ appName: String });
 </script>
 
 <template>
     <AppLayout>
-        <h1>Dashboard</h1>
+        <Header text="Dashboard" />
+
         <Table>
             <TableCaption>A list of your recent invoices.</TableCaption>
             <TableHeader>
