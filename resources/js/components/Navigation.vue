@@ -4,7 +4,9 @@ import { Link } from "@inertiajs/vue3";
 </script>
 
 <template>
-    <nav class="bg-neutral-500 p-2 flex justify-between">
+    <nav
+        class="bg-neutral-500 p-2 flex justify-between border-b-1 border-neutral-600"
+    >
         <ul class="flex gap-1">
             <li>
                 <Link href="./dashboard">
