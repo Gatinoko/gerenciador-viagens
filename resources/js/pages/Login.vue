@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Header from "@/components/Header.vue";
 
-defineProps({ appName: String });
+const page = usePage<{ flash: { message: string } }>();
 </script>
 
 <template>
@@ -15,8 +15,10 @@ defineProps({ appName: String });
         <div
             class="p-10 w-200 self-center bg-neutral-300 rounded-xl border-1 border-neutral-400"
         >
-            <!-- Register form -->
-            <form>
+            <!-- Success message  -->
+            <span class="text-green-600" v-if="page.props.flash.message">{{
+                page.props.flash.message
+            }}</span>
                 <div>
                     <Label for="email" class="text-right"> Email </Label>
                     <Input
