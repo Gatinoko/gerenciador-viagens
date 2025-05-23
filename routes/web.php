@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 
@@ -15,14 +16,8 @@ Route::get('/dashboard', function () {
     ]);
 })->name("show.dashboard");
 
-Route::get('/login', function () {
-    return Inertia::render('Login', [
-        'appName' => config('app.name'),
-    ]);
-});
+Route::get('/login', [AuthController::class, 'showLogin'])->name("show.login");
+Route::get('/register', [AuthController::class, "showRegister"])->name("show.register");
 
-Route::get('/register', function () {
-    return Inertia::render('Register', [
-        'appName' => config('app.name'),
-    ]);
-});
+Route::post('/login', [AuthController::class, 'login'])->name("login");
+Route::post('/register', [AuthController::class, "register"])->name("register");
