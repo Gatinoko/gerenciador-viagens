@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+import { computed } from "vue";
+
+const page = usePage();
+const user = computed(() => page.props.auth?.user);
+
+const { appName, errors } = defineProps({ appName: String, errors: Object });
 </script>
 
 <template>
@@ -20,9 +26,11 @@ import { Link } from "@inertiajs/vue3";
             </li>
         </ul>
 
+        <span class="text-red-600" v-if="user">{{ user.email }}</span>
+
         <ul class="flex gap-1">
             <li>
-                <Link href="/logout" method="post">
+                <Link v-if="user" href="/logout" method="post">
                     <Button>Logout</Button>
                 </Link>
             </li>
