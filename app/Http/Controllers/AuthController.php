@@ -61,6 +61,7 @@ class AuthController extends Controller {
     public function register(Request $request) {
         // Validates input
         $request->validate([
+            "name" => ['required', 'string', 'max:64'],
             "email" => ['required', 'email', 'max:255', 'unique:users'],
             "password" => ['required', 'required_with:passwordConfirmation', 'same:passwordConfirmation', 'string', 'min:8'],
             "passwordConfirmation" => ['required', 'string'],
@@ -68,6 +69,7 @@ class AuthController extends Controller {
 
         // Creates user in the "user" database table
         User::create([
+            "name" => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

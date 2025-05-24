@@ -6,6 +6,7 @@ import AppLayout from "@/layouts/AppLayout.vue";
 import Header from "@/components/Header.vue";
 
 const form = useForm({
+    name: "",
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -28,6 +29,21 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
         >
             <!-- Register form -->
             <form @submit.prevent="submit" novalidate>
+                <div>
+                    <Label for="name" class="text-right"> Nome </Label>
+                    <Input
+                        id="name"
+                        class="col-span-3"
+                        type="text"
+                        name="name"
+                        placeholder="Jose Carlos"
+                        v-model="form.name"
+                    />
+                    <span class="text-red-600" v-if="errors?.name">{{
+                        errors?.name
+                    }}</span>
+                </div>
+
                 <div>
                     <Label for="email" class="text-right"> Email </Label>
                     <Input

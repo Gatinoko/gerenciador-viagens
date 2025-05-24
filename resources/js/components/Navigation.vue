@@ -27,6 +27,7 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
         </ul>
 
         <span class="text-red-600" v-if="user">{{ user.email }}</span>
+        <span class="text-red-600" v-if="user">{{ user.name }}</span>
 
         <ul class="flex gap-1">
             <li>
