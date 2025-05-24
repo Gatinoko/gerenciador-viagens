@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller {
 
@@ -30,35 +32,47 @@ class AuthController extends Controller {
             "password" => ['required', 'string'],
         ]);
 
-        // Logs user in
-        if (Auth::attempt($validated)) {
-            // Regenerates session id for security
-            $request->session()->regenerate();
+        // Attempts to log user in
+        $token = Auth::attempt($validated);
 
-            // Redirect user to X if successful, otherwise return error
-            return to_route("show.dashboard");
+        // If login attempt fails, return appropriate error message
+        if (!$token) {
+            throw ValidationException::withMessages([
+                'credentials' => 'Incorrect credentials.'
+            ]);
         }
 
-        throw ValidationException::withMessages([
-            'credentials' => 'Incorrect credentials.'
-        ]);
+        // If login attempt succeeds, creates token cookie
+        $cookie = cookie(
+            'token',
+            $token,
+            60, // Minutes
+            null,
+            null, // Secure
+            null, // HTTP only
+            false, // Raw
+            'Strict' // SameSite
+        );
+
+        // Redirects user to dashboard page with cookie
+        return to_route("show.dashboard")->withCookie($cookie);
     }
 
     public function register(Request $request) {
         // Validates input
-        $validated = $request->validate([
+        $request->validate([
             "email" => ['required', 'email', 'max:255', 'unique:users'],
             "password" => ['required', 'required_with:passwordConfirmation', 'same:passwordConfirmation', 'string', 'min:8'],
             "passwordConfirmation" => ['required', 'string'],
         ]);
 
         // Creates user in the "user" database table
-        $user = User::create($validated);
+        User::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-        // Logs in user after registration
-        // Auth::login($user);
-
-        // Redirects user to index
+        // Redirects user to index with success message
         return to_route('show.login')->with('message', 'success');
     }
 
@@ -66,11 +80,10 @@ class AuthController extends Controller {
         // Logs out user
         Auth::logout();
 
-        // Remove all data from the session
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        // Forgets the token cookie
+        $cookie = Cookie::forget('token');
 
-        // Redirects user to login page and flash message
-        return to_route('show.login')->with('message', 'logged out');
+        // Redirects user to login and flashes logout message
+        return to_route('show.login')->with('message', 'logged out')->withCookie($cookie);
     }
 }
