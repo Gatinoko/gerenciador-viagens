@@ -41,4 +41,11 @@ class TravelRequest extends Model
     {
         return [ ];
     }
+
+    /**
+     * Defines relationship with User model.
+     */
+    public function user() {
+        return $this->belongsTo(User::class, 'solicitor_id', 'id');
+    }
 }
