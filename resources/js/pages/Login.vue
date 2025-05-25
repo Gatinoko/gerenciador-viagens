@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import AppLayout from "@/layouts/AppLayout.vue";
+import { toast } from "vue-sonner";
 import { Link, useForm, usePage } from "@inertiajs/vue3";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Header from "@/components/Header.vue";
+import { watch } from "vue";
+
+const props = defineProps({ appName: String, errors: Object });
+const page = usePage<{ flash: { message: string } }>();
 
 const form = useForm({
     email: "",
@@ -16,8 +21,26 @@ function submit() {
     form.post("/login");
 }
 
-const { appName, errors } = defineProps({ appName: String, errors: Object });
-const page = usePage<{ flash: { message: string } }>();
+// Triggers a warning toast every time there is a credential error
+watch(
+    () => ({ credentialsError: props.errors.credentials }),
+    (v) => {
+        if (v.credentialsError) toast.warning(`${v.credentialsError}`);
+    }
+);
+
+// Triggers a success toast when user registers successfully and gets redirected to login page
+watch(
+    () => page.props.flash.message,
+    (v) => {
+        if (v) {
+            setTimeout(() => {
+                toast.success(`${v}`);
+            }, 0);
+        }
+    },
+    { immediate: true }
+);
 </script>
 
 <template>
@@ -27,16 +50,6 @@ const page = usePage<{ flash: { message: string } }>();
         <div
             class="p-6 w-100 self-center bg-background rounded-lg border-1 border-border shadow-lg"
         >
-            <!-- Success message  -->
-            <!-- <span class="text-green-600" v-if="page.props.flash.message">{{
-                page.props.flash.message
-            }}</span> -->
-
-            <!-- Login error message -->
-            <!-- <span class="text-red-600" v-if="props.errors?.credentials">
-                {{ props.errors.credentials }}
-            </span> -->
-
             <!-- Login form -->
             <form @submit.prevent="submit" novalidate class="grid gap-3">
                 <div class="grid gap-1.5">
@@ -75,25 +88,6 @@ const page = usePage<{ flash: { message: string } }>();
                 <!-- Login button -->
                 <Button>Login</Button>
             </form>
-
-            <!-- <Button
-                @click="
-                    () => {
-                        toast('Event has been created', {
-                            description: 'Sunday, December 03, 2023 at 9:00 AM',
-                        });
-                    }
-                "
-                >Toast test</Button
-            > -->
-
-            <!-- Auxiliary text -->
-            <!-- <p>
-                Não possui uma conta?
-                <Link href="./register" class="text-blue-400 underline"
-                    >Registre-se aqui</Link
-                >
-            </p> -->
         </div>
     </AppLayout>
 </template>
