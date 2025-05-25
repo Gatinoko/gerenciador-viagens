@@ -25,58 +25,75 @@ const page = usePage<{ flash: { message: string } }>();
         <Header text="Login" />
 
         <div
-            class="p-10 w-200 self-center bg-neutral-300 rounded-xl border-1 border-neutral-400"
+            class="p-6 w-100 self-center bg-background rounded-lg border-1 border-border shadow-lg"
         >
             <!-- Success message  -->
-            <span class="text-green-600" v-if="page.props.flash.message">{{
+            <!-- <span class="text-green-600" v-if="page.props.flash.message">{{
                 page.props.flash.message
-            }}</span>
+            }}</span> -->
 
             <!-- Login error message -->
-            <span class="text-red-600" v-if="errors?.credentials">
-                {{ errors.credentials }}
-            </span>
+            <!-- <span class="text-red-600" v-if="props.errors?.credentials">
+                {{ props.errors.credentials }}
+            </span> -->
 
             <!-- Login form -->
-            <form @submit.prevent="submit" novalidate>
-                <div>
-                    <Label for="email" class="text-right"> Email </Label>
-                    <Input
-                        id="email"
-                        class="col-span-3"
-                        type="email"
-                        placeholder="exemplo@gmail.com"
-                        v-model="form.email"
-                    />
-                    <span class="text-red-600" v-if="errors?.email">{{
-                        errors?.email
-                    }}</span>
-                </div>
-                <div>
-                    <Label for="senha" class="text-right"> Senha </Label>
-                    <Input
-                        id="password"
-                        class="col-span-3"
-                        type="text"
-                        placeholder="senha123"
-                        v-model="form.password"
-                    />
-                    <span class="text-red-600" v-if="errors?.password">{{
-                        errors?.password
-                    }}</span>
+            <form @submit.prevent="submit" novalidate class="grid gap-3">
+                <div class="grid gap-1.5">
+                    <!-- Email field -->
+                    <div class="grid gap-0.5">
+                        <Label for="email"> Email </Label>
+                        <Input
+                            id="email"
+                            class="col-span-3"
+                            type="email"
+                            placeholder="exemplo@gmail.com"
+                            v-model="form.email"
+                        />
+                        <span
+                            class="text-red-600 text-xs h-4 w-full block col-span-3"
+                            >{{ errors?.email }}</span
+                        >
+                    </div>
+
+                    <!-- Password field -->
+                    <div class="grid gap-0.5">
+                        <Label for="senha"> Senha </Label>
+                        <Input
+                            id="password"
+                            class="col-span-3"
+                            type="text"
+                            placeholder="senha123"
+                            v-model="form.password"
+                        />
+                        <span class="text-red-600 text-xs h-4 w-full block">{{
+                            errors?.password
+                        }}</span>
+                    </div>
                 </div>
 
                 <!-- Login button -->
                 <Button>Login</Button>
             </form>
 
+            <!-- <Button
+                @click="
+                    () => {
+                        toast('Event has been created', {
+                            description: 'Sunday, December 03, 2023 at 9:00 AM',
+                        });
+                    }
+                "
+                >Toast test</Button
+            > -->
+
             <!-- Auxiliary text -->
-            <p>
+            <!-- <p>
                 Não possui uma conta?
                 <Link href="./register" class="text-blue-400 underline"
                     >Registre-se aqui</Link
                 >
-            </p>
+            </p> -->
         </div>
     </AppLayout>
 </template>
