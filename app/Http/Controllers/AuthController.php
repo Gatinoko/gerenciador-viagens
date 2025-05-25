@@ -13,18 +13,6 @@ use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller {
 
-    public function showLogin() {
-        return Inertia::render("Login", [
-            "appName" => config("app.name"),
-        ]);
-    }
-
-    public function showRegister() {
-        return Inertia::render("Register", [
-            "appName" => config("app.name"),
-        ]);
-    }
-
     public function login(Request $request) {
         // Validates input
         $validated = $request->validate([
