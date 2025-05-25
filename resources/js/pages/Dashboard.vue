@@ -12,6 +12,8 @@ import {
 import AppLayout from "@/layouts/AppLayout.vue";
 import Header from "@/components/Header.vue";
 import CreateTravelRequestDialog from "@/components/CreateTravelRequestDialog.vue";
+import axios from "axios";
+import ViewTravelRequestDialog from "@/components/ViewTravelRequestDialog.vue";
 
 // Props
 const { appName, allReqs, errors } = defineProps({
@@ -32,6 +34,38 @@ const form = useForm({
     returnDate: "",
     status: "",
 });
+
+// Ref that stores current travel request data when the user clicks on a table row
+const currentTravelRequestData = ref();
+
+// View travel request dialog ref (for programatic control)
+const viewTravelRequestDialogOpen = ref(false);
+
+// Handler function for clicking in the table row
+function tableRowClickHandler(e: PointerEvent) {
+    // Resets currentTravelRequestData ref
+    currentTravelRequestData.value = {};
+
+    // Gets id
+    const currentTravelRequest = e.currentTarget?.dataset.id;
+
+    // Send get request to endpoint
+    axios
+        .get("/travelRequest/get", {
+            params: {
+                user_id: user.value.id,
+                travel_request_id: currentTravelRequest,
+            },
+        })
+        .then((res) => {
+            currentTravelRequestData.value = res.data;
+            console.log(res.data);
+        })
+        .finally(() => {
+            viewTravelRequestDialogOpen.value = true;
+            console.log(viewTravelRequestDialogOpen.value);
+        });
+}
 </script>
 
 <template>
@@ -61,7 +95,11 @@ const form = useForm({
 
             <!-- Body -->
             <TableBody>
-                <TableRow v-for="travelRequest in allReqs">
+                <TableRow
+                    @click="tableRowClickHandler"
+                    :data-id="travelRequest?.id"
+                    v-for="travelRequest in allReqs"
+                >
                     <TableCell class="font-medium">
                         {{ travelRequest?.id }}
                     </TableCell>
@@ -92,5 +130,12 @@ const form = useForm({
         >
             <Button>Novo pedido de viagem</Button>
         </CreateTravelRequestDialog>
+
+        <ViewTravelRequestDialog
+            v-bind:current-travel-request-data="currentTravelRequestData"
+            v-model:view-travel-request-dialog-open="
+                viewTravelRequestDialogOpen
+            "
+        />
     </AppLayout>
 </template>
