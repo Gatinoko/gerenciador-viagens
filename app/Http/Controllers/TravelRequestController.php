@@ -14,7 +14,7 @@ class TravelRequestController extends Controller
             "destination" => ['required', 'string', 'max:64'],
             "departureDate" => ['required', 'date'],
             "returnDate" => ['required', 'date', 'after:departureDate'],
-            "status" => ['required', 'in:SOLICITED,APPROVED,CANCELLED'],
+            "status" => ['required', 'in:solicited,approved,cancelled'],
         ]);
 
         // Creates travel request in table
