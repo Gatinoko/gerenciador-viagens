@@ -78,170 +78,146 @@ function submit() {
                 </DialogDescription>
             </DialogHeader>
 
-            <!-- Dialog body -->
-            <form @submit.prevent="submit" class="grid gap-4 py-4" novalidate>
-                <!-- Solicitor (read only) -->
-                <div>
-                    <!-- Field eror message  -->
-                    <span class="text-red-600" v-if="errors?.solicitor">{{
-                        errors.solicitor
-                    }}</span>
-
-                    <!-- Field -->
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="solicitorName"> Solicitante </Label>
-                        <Input
-                            id="solicitor"
-                            class="col-span-3"
-                            type="text"
-                            name="solicitorName"
-                            v-model="user.name"
-                            readonly
-                            disabled
-                        />
-                    </div>
+            <!-- Create travel request form -->
+            <form @submit.prevent="submit" class="grid gap-1.5 py-4" novalidate>
+                <!-- Solicitor field (read only) -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="solicitorName"> Solicitante </Label>
+                    <Input
+                        id="solicitor"
+                        class="col-span-3"
+                        type="text"
+                        name="solicitorName"
+                        v-model="user.name"
+                        readonly
+                        disabled
+                    />
+                    <span
+                        class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                        >{{ errors.solicitor }}</span
+                    >
                 </div>
 
-                <!-- Destination -->
-                <div>
-                    <!-- Field error message  -->
-                    <span class="text-red-600" v-if="errors?.destination">{{
-                        errors.destination
-                    }}</span>
-
-                    <!-- Field -->
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="destination"> Destino </Label>
-                        <Input
-                            id="destination"
-                            class="col-span-3"
-                            type="text"
-                            name="destination"
-                            placeholder="Canada, Marrocos..."
-                            v-model="form.destination"
-                        />
-                    </div>
+                <!-- Destination field -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="destination"> Destino </Label>
+                    <Input
+                        id="destination"
+                        class="col-span-3"
+                        type="text"
+                        name="destination"
+                        placeholder="Canada, Marrocos..."
+                        v-model="form.destination"
+                    />
+                    <span
+                        class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                        >{{ errors.destination }}</span
+                    >
                 </div>
 
-                <!-- Departure -->
-                <div>
-                    <!-- Field eror message  -->
-                    <span class="text-red-600" v-if="errors?.departureDate">{{
-                        errors.departureDate
-                    }}</span>
-
-                    <!-- Field -->
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="departureDate"> Data de ida </Label>
-                        <Popover>
-                            <PopoverTrigger as-child>
-                                <Button
-                                    variant="outline"
-                                    :class="
-                                        cn(
-                                            'w-[280px] justify-start text-left font-normal',
-                                            !departureDate &&
-                                                'text-muted-foreground'
-                                        )
-                                    "
-                                >
-                                    <CalendarIcon class="mr-2 h-4 w-4" />
-                                    {{
-                                        departureDate
-                                            ? dateFormatter.format(
-                                                  departureDate.toDate(
-                                                      getLocalTimeZone()
-                                                  )
+                <!-- Departure field -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="departureDate"> Data de ida </Label>
+                    <Popover>
+                        <PopoverTrigger as-child>
+                            <Button
+                                variant="outline"
+                                :class="
+                                    cn(
+                                        'w-[280px] justify-start text-left font-normal',
+                                        !departureDate &&
+                                            'text-muted-foreground'
+                                    )
+                                "
+                            >
+                                <CalendarIcon class="mr-2 h-4 w-4" />
+                                {{
+                                    departureDate
+                                        ? dateFormatter.format(
+                                              departureDate.toDate(
+                                                  getLocalTimeZone()
                                               )
-                                            : "Selecione uma data de ida"
-                                    }}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent class="w-auto p-0">
-                                <Calendar
-                                    v-model="departureDate"
-                                    initial-focus
-                                />
-                            </PopoverContent>
-                        </Popover>
-                    </div>
+                                          )
+                                        : "Selecione uma data de ida"
+                                }}
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent class="w-auto p-0">
+                            <Calendar v-model="departureDate" initial-focus />
+                        </PopoverContent>
+                        <span
+                            class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                            >{{ errors.departureDate }}</span
+                        >
+                    </Popover>
                 </div>
 
-                <!-- Return -->
-                <div>
-                    <!-- Field error message  -->
-                    <span class="text-red-600" v-if="errors?.returnDate">{{
-                        errors.returnDate
-                    }}</span>
-
-                    <!-- Field -->
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="returnDate"> Data de volta </Label>
-                        <Popover>
-                            <PopoverTrigger as-child>
-                                <Button
-                                    variant="outline"
-                                    :class="
-                                        cn(
-                                            'w-[280px] justify-start text-left font-normal',
-                                            !returnDate &&
-                                                'text-muted-foreground'
-                                        )
-                                    "
-                                >
-                                    <CalendarIcon class="mr-2 h-4 w-4" />
-                                    {{
-                                        returnDate
-                                            ? dateFormatter.format(
-                                                  returnDate.toDate(
-                                                      getLocalTimeZone()
-                                                  )
+                <!-- Return field -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="returnDate"> Data de volta </Label>
+                    <Popover>
+                        <PopoverTrigger as-child>
+                            <Button
+                                variant="outline"
+                                :class="
+                                    cn(
+                                        'w-[280px] justify-start text-left font-normal',
+                                        !returnDate && 'text-muted-foreground'
+                                    )
+                                "
+                            >
+                                <CalendarIcon class="mr-2 h-4 w-4" />
+                                {{
+                                    returnDate
+                                        ? dateFormatter.format(
+                                              returnDate.toDate(
+                                                  getLocalTimeZone()
                                               )
-                                            : "Selecione uma data de volta"
-                                    }}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent class="w-auto p-0">
-                                <Calendar v-model="returnDate" initial-focus />
-                            </PopoverContent>
-                        </Popover>
-                    </div>
+                                          )
+                                        : "Selecione uma data de volta"
+                                }}
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent class="w-auto p-0">
+                            <Calendar v-model="returnDate" initial-focus />
+                        </PopoverContent>
+                        <span
+                            class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                            >{{ errors.returnDate }}</span
+                        >
+                    </Popover>
                 </div>
 
-                <!-- Status -->
-                <div>
-                    <!-- Field error message  -->
-                    <span class="text-red-600" v-if="errors?.status">{{
-                        errors.status
-                    }}</span>
-
-                    <!-- Field (read only) -->
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="name" class="text-right"> Status </Label>
-                        <Select v-model="form.status" :disabled="true">
-                            <SelectTrigger class="col-span-3 w-full">
-                                <SelectValue placeholder="Select a fruit">
-                                    {{
-                                        form.status.charAt(0).toUpperCase() +
-                                        form.status.slice(1)
-                                    }}
-                                </SelectValue>
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectItem value="solicited">
-                                        Solicitado
-                                    </SelectItem>
-                                    <SelectItem value="approved">
-                                        Aprovado
-                                    </SelectItem>
-                                    <SelectItem value="cancelled">
-                                        Cancelado
-                                    </SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
+                <!-- Status field (read only) -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="name" class="text-right"> Status </Label>
+                    <Select v-model="form.status" :disabled="true">
+                        <SelectTrigger class="col-span-3 w-full">
+                            <SelectValue placeholder="Select a fruit">
+                                {{
+                                    form.status.charAt(0).toUpperCase() +
+                                    form.status.slice(1)
+                                }}
+                            </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="solicited">
+                                    Solicitado
+                                </SelectItem>
+                                <SelectItem value="approved">
+                                    Aprovado
+                                </SelectItem>
+                                <SelectItem value="cancelled">
+                                    Cancelado
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    <span
+                        class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                        >{{ errors.status }}</span
+                    >
                 </div>
             </form>
 

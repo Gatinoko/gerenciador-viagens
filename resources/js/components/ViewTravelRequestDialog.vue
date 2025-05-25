@@ -65,139 +65,139 @@ const dateFormatter = new DateFormatter("pt-BR", {
                 </DialogDescription>
             </DialogHeader>
 
-            <!-- Dialog body -->
-            <form @submit.prevent="submit" class="grid gap-4 py-4" novalidate>
-                <!-- Solicitor (read only) -->
-                <div>
-                    <!-- Field -->
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="solicitorName"> Solicitante </Label>
-                        <Input
-                            id="solicitor"
-                            class="col-span-3"
-                            type="text"
-                            name="solicitorName"
-                            v-model="currentTravelRequestData.user.name"
-                            disabled
-                            readonly
-                        />
-                    </div>
+            <!-- View travel request form -->
+            <form @submit.prevent="submit" class="grid gap-1.5 py-4" novalidate>
+                <!-- Solicitor field (read only) -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="solicitorName"> Solicitante </Label>
+                    <Input
+                        id="solicitor"
+                        class="col-span-3"
+                        type="text"
+                        name="solicitorName"
+                        v-model="currentTravelRequestData.user.name"
+                        disabled
+                        readonly
+                    />
+                    <span
+                        class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                    ></span>
                 </div>
 
-                <!-- Destination -->
-                <div>
-                    <!-- Field -->
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="destination"> Destino </Label>
-                        <Input
-                            id="destination"
-                            class="col-span-3"
-                            type="text"
-                            name="destination"
-                            v-model="currentTravelRequestData.destination"
-                            placeholder="Canada, Marrocos..."
-                            disabled
-                            readonly
-                        />
-                    </div>
+                <!-- Destination field -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="destination"> Destino </Label>
+                    <Input
+                        id="destination"
+                        class="col-span-3"
+                        type="text"
+                        name="destination"
+                        v-model="currentTravelRequestData.destination"
+                        placeholder="Canada, Marrocos..."
+                        disabled
+                        readonly
+                    />
+                    <span
+                        class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                    ></span>
                 </div>
 
-                <!-- Departure -->
-                <div>
-                    <!-- Field -->
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="departureDate"> Data de ida </Label>
-                        <Popover>
-                            <PopoverTrigger as-child>
-                                <Button
-                                    disabled
-                                    variant="outline"
-                                    class="w-[280px] justify-start text-left font-normal"
-                                >
-                                    <CalendarIcon class="mr-2 h-4 w-4" />
-                                    {{
-                                        dateFormatter.format(
-                                            new Date(
-                                                currentTravelRequestData.departure_date
-                                            )
+                <!-- Departure field -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="departureDate"> Data de ida </Label>
+                    <Popover>
+                        <PopoverTrigger as-child>
+                            <Button
+                                disabled
+                                variant="outline"
+                                class="w-[280px] justify-start text-left font-normal"
+                            >
+                                <CalendarIcon class="mr-2 h-4 w-4" />
+                                {{
+                                    dateFormatter.format(
+                                        new Date(
+                                            currentTravelRequestData.departure_date
                                         )
-                                    }}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent class="w-auto p-0">
-                                <Calendar initial-focus />
-                            </PopoverContent>
-                        </Popover>
-                    </div>
+                                    )
+                                }}
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent class="w-auto p-0">
+                            <Calendar initial-focus />
+                        </PopoverContent>
+                        <span
+                            class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                        ></span>
+                    </Popover>
                 </div>
 
-                <!-- Return -->
-                <div>
-                    <!-- Field -->
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="returnDate"> Data de volta </Label>
-                        <Popover>
-                            <PopoverTrigger as-child>
-                                <Button
-                                    disabled
-                                    variant="outline"
-                                    class="w-[280px] justify-start text-left font-normal"
-                                >
-                                    <CalendarIcon class="mr-2 h-4 w-4" />
-                                    {{
-                                        dateFormatter.format(
-                                            new Date(
-                                                currentTravelRequestData.return_date
-                                            )
+                <!-- Return field -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="returnDate"> Data de volta </Label>
+                    <Popover>
+                        <PopoverTrigger as-child>
+                            <Button
+                                disabled
+                                variant="outline"
+                                class="w-[280px] justify-start text-left font-normal"
+                            >
+                                <CalendarIcon class="mr-2 h-4 w-4" />
+                                {{
+                                    dateFormatter.format(
+                                        new Date(
+                                            currentTravelRequestData.return_date
                                         )
-                                    }}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent class="w-auto p-0">
-                                <Calendar :disabled="true" initial-focus />
-                            </PopoverContent>
-                        </Popover>
-                    </div>
+                                    )
+                                }}
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent class="w-auto p-0">
+                            <Calendar :disabled="true" initial-focus />
+                        </PopoverContent>
+                        <span
+                            class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                        ></span>
+                    </Popover>
                 </div>
 
-                <!-- Status -->
-                <div>
-                    <!-- Field (read only) -->
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="name" class="text-right"> Status </Label>
-                        <Select
-                            v-model="currentTravelRequestData.status"
-                            :disabled="true"
-                        >
-                            <SelectTrigger class="col-span-3 w-full">
-                                <SelectValue placeholder="Select a fruit">
-                                    {{
-                                        translateAndFormatStatus(
-                                            currentTravelRequestData.status
-                                        )
-                                    }}
-                                </SelectValue>
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectItem value="solicited">
-                                        Solicited
-                                    </SelectItem>
-                                    <SelectItem value="approved">
-                                        Approved
-                                    </SelectItem>
-                                    <SelectItem value="cancelled">
-                                        Cancelled
-                                    </SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                    </div>
+                <!-- Status field (read only) -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="name"> Status </Label>
+                    <Select
+                        v-model="currentTravelRequestData.status"
+                        :disabled="true"
+                    >
+                        <SelectTrigger class="col-span-3 w-full">
+                            <SelectValue placeholder="Select a fruit">
+                                {{
+                                    translateAndFormatStatus(
+                                        currentTravelRequestData.status
+                                    )
+                                }}
+                            </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="solicited">
+                                    Solicited
+                                </SelectItem>
+                                <SelectItem value="approved">
+                                    Approved
+                                </SelectItem>
+                                <SelectItem value="cancelled">
+                                    Cancelled
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    <span
+                        class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                    ></span>
                 </div>
             </form>
 
             <!-- Dialog footer -->
-            <DialogFooter></DialogFooter>
+            <!-- <DialogFooter></DialogFooter> -->
         </DialogContent>
     </Dialog>
 </template>
