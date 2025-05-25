@@ -11,9 +11,7 @@ import {
 } from "@/components/ui/table";
 import AppLayout from "@/layouts/AppLayout.vue";
 import Header from "@/components/Header.vue";
-import { useForm, usePage } from "@inertiajs/vue3";
-import CreateTravelRequestForm from "@/components/CreateTravelRequestForm.vue";
-import { computed } from "vue";
+import CreateTravelRequestDialog from "@/components/CreateTravelRequestDialog.vue";
 
 // Props
 const { appName, allReqs, errors } = defineProps({
@@ -87,12 +85,12 @@ const form = useForm({
         </Table>
 
         <!-- Create new travel request dialog -->
-        <CreateTravelRequestForm
+        <CreateTravelRequestDialog
             v-bind:user="user"
             v-bind:errors="errors"
             v-bind:form="form"
         >
             <Button>Novo pedido de viagem</Button>
-        </CreateTravelRequestForm>
+        </CreateTravelRequestDialog>
     </AppLayout>
 </template>
