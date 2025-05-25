@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { translateAndFormatStatus, formatDbDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -12,6 +13,8 @@ import {
 import AppLayout from "@/layouts/AppLayout.vue";
 import Header from "@/components/Header.vue";
 import CreateTravelRequestDialog from "@/components/CreateTravelRequestDialog.vue";
+import { useForm, usePage } from "@inertiajs/vue3";
+import { computed, ref } from "vue";
 import axios from "axios";
 import ViewTravelRequestDialog from "@/components/ViewTravelRequestDialog.vue";
 
@@ -26,13 +29,13 @@ const { appName, allReqs, errors } = defineProps({
 const page = usePage<{ flash: { message: string } }>();
 const user = computed(() => page.props.auth?.user);
 
-// Form values
+// Create travel request dialog form
 const form = useForm({
     solicitorId: user.value.id,
     destination: "",
     departureDate: "",
     returnDate: "",
-    status: "",
+    status: "solicited",
 });
 
 // Ref that stores current travel request data when the user clicks on a table row
@@ -110,13 +113,13 @@ function tableRowClickHandler(e: PointerEvent) {
                         {{ travelRequest?.destination }}
                     </TableCell>
                     <TableCell class="font-medium">
-                        {{ travelRequest?.departure_date }}
+                        {{ formatDbDate(travelRequest?.departure_date) }}
                     </TableCell>
                     <TableCell class="font-medium">
-                        {{ travelRequest?.return_date }}
+                        {{ formatDbDate(travelRequest?.return_date) }}
                     </TableCell>
                     <TableCell class="font-medium">
-                        {{ travelRequest?.status }}
+                        {{ translateAndFormatStatus(travelRequest?.status) }}
                     </TableCell>
                 </TableRow>
             </TableBody>
