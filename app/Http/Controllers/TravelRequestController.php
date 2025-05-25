@@ -33,5 +33,17 @@ class TravelRequestController extends Controller
 
     public function cancelTravelRequest(Request $request) { }
 
-    public function getUserTravelRequests(Request $request) { }
+    public function getUserTravelRequest(Request $request) {
+        // Request body content
+        $bodyContent = $request->query();
+
+        // Gets authenticated user's id
+        $authUserId = $request->user()->only('id');
+
+        // Retrieves respective user's travel requests
+        $userTravelRequest = TravelRequest::where('solicitor_id', $authUserId)->where('id', $bodyContent['travel_request_id'])->with('user')->first();
+
+        // return response()->json($bodyContent);
+        return response()->json($userTravelRequest);
+    }
 }
