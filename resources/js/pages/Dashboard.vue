@@ -9,83 +9,90 @@ import {
     TableBody,
     TableCell,
 } from "@/components/ui/table";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import AppLayout from "@/layouts/AppLayout.vue";
 import Header from "@/components/Header.vue";
+import { useForm, usePage } from "@inertiajs/vue3";
+import CreateTravelRequestForm from "@/components/CreateTravelRequestForm.vue";
+import { computed } from "vue";
 
-defineProps({ appName: String });
+// Props
+const { appName, allReqs, errors } = defineProps({
+    appName: String,
+    allReqs: Array,
+    errors: Object,
+});
+
+// Auth user object
+const page = usePage<{ flash: { message: string } }>();
+const user = computed(() => page.props.auth?.user);
+
+// Form values
+const form = useForm({
+    solicitorId: user.value.id,
+    destination: "",
+    departureDate: "",
+    returnDate: "",
+    status: "",
+});
 </script>
 
 <template>
     <AppLayout>
         <Header text="Dashboard" />
 
+        <span class="text-green-600" v-if="page.props.flash.message">{{
+            page.props.flash.message
+        }}</span>
+
+        <!-- User travel request table -->
         <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <!-- Caption -->
+            <TableCaption>Pedidos de viagem de {{ user.name }}.</TableCaption>
+
+            <!-- Header -->
             <TableHeader>
                 <TableRow>
-                    <TableHead class="w-[100px]"> Invoice </TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Method</TableHead>
-                    <TableHead class="text-right"> Amount </TableHead>
+                    <TableHead class="w-[100px]"> ID Pedido </TableHead>
+                    <TableHead>Solicitante</TableHead>
+                    <TableHead>Destino</TableHead>
+                    <TableHead> Data de ida </TableHead>
+                    <TableHead> Data de volta </TableHead>
+                    <TableHead> Status </TableHead>
                 </TableRow>
             </TableHeader>
+
+            <!-- Body -->
             <TableBody>
-                <TableRow>
-                    <TableCell class="font-medium"> INV001 </TableCell>
-                    <TableCell>Paid</TableCell>
-                    <TableCell>Credit Card</TableCell>
-                    <TableCell class="text-right"> $250.00 </TableCell>
+                <TableRow v-for="travelRequest in allReqs">
+                    <TableCell class="font-medium">
+                        {{ travelRequest?.id }}
+                    </TableCell>
+                    <TableCell class="font-medium">
+                        {{ user.name }}
+                    </TableCell>
+                    <TableCell class="font-medium">
+                        {{ travelRequest?.destination }}
+                    </TableCell>
+                    <TableCell class="font-medium">
+                        {{ travelRequest?.departure_date }}
+                    </TableCell>
+                    <TableCell class="font-medium">
+                        {{ travelRequest?.return_date }}
+                    </TableCell>
+                    <TableCell class="font-medium">
+                        {{ travelRequest?.status }}
+                    </TableCell>
                 </TableRow>
             </TableBody>
         </Table>
 
-        <Dialog>
-            <DialogTrigger as-child>
-                <Button>Novo pedido de viagem</Button>
-            </DialogTrigger>
-            <DialogContent class="sm:max-w-[425px]">
-                <DialogHeader>
-                    <DialogTitle>Edit profile</DialogTitle>
-                    <DialogDescription>
-                        Make changes to your profile here. Click save when
-                        you're done.
-                    </DialogDescription>
-                </DialogHeader>
-                <div class="grid gap-4 py-4">
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="name" class="text-right"> Name </Label>
-                        <Input
-                            id="name"
-                            value="Pedro Duarte"
-                            class="col-span-3"
-                        />
-                    </div>
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="username" class="text-right">
-                            Username
-                        </Label>
-                        <Input
-                            id="username"
-                            value="@peduarte"
-                            class="col-span-3"
-                        />
-                    </div>
-                </div>
-                <DialogFooter>
-                    <Button type="submit"> Save changes </Button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
+        <!-- Create new travel request dialog -->
+        <CreateTravelRequestForm
+            v-bind:user="user"
+            v-bind:errors="errors"
+            v-bind:form="form"
+        >
+            <Button>Novo pedido de viagem</Button>
+        </CreateTravelRequestForm>
     </AppLayout>
 </template>
