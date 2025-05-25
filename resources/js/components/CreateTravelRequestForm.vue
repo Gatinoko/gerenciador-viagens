@@ -97,6 +97,7 @@ function submit() {
                             name="solicitorName"
                             v-model="user.name"
                             readonly
+                            disabled
                         />
                     </div>
                 </div>
@@ -152,7 +153,7 @@ function submit() {
                                                       getLocalTimeZone()
                                                   )
                                               )
-                                            : "Selecione uma data"
+                                            : "Selecione uma data de ida"
                                     }}
                                 </Button>
                             </PopoverTrigger>
@@ -198,7 +199,7 @@ function submit() {
                                                       getLocalTimeZone()
                                                   )
                                               )
-                                            : "Selecione a date"
+                                            : "Selecione uma data de volta"
                                     }}
                                 </Button>
                             </PopoverTrigger>
@@ -219,21 +220,25 @@ function submit() {
                     <!-- Field (read only) -->
                     <div class="grid grid-cols-4 items-center gap-4">
                         <Label for="name" class="text-right"> Status </Label>
-                        <Select v-model="form.status">
-                            <SelectTrigger class="w-[180px]">
-                                <SelectValue placeholder="Select a fruit" />
+                        <Select v-model="form.status" :disabled="true">
+                            <SelectTrigger class="col-span-3 w-full">
+                                <SelectValue placeholder="Select a fruit">
+                                    {{
+                                        form.status.charAt(0).toUpperCase() +
+                                        form.status.slice(1)
+                                    }}
+                                </SelectValue>
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <!-- <SelectLabel>Statuses</SelectLabel> -->
-                                    <SelectItem value="SOLICITED">
-                                        Solicited
+                                    <SelectItem value="solicited">
+                                        Solicitado
                                     </SelectItem>
-                                    <SelectItem value="APPROVED">
-                                        Approved
+                                    <SelectItem value="approved">
+                                        Aprovado
                                     </SelectItem>
-                                    <SelectItem value="CANCELLED">
-                                        Cancelled
+                                    <SelectItem value="cancelled">
+                                        Cancelado
                                     </SelectItem>
                                 </SelectGroup>
                             </SelectContent>
@@ -245,7 +250,9 @@ function submit() {
             <!-- Dialog footer -->
             <DialogFooter>
                 <!-- Form submit button -->
-                <Button @click="submit" class="w-full"> Save changes </Button>
+                <Button @click="submit" class="w-full">
+                    Criar novo pedido de viagem
+                </Button>
             </DialogFooter>
         </DialogContent>
     </Dialog>
