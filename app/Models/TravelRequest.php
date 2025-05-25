@@ -4,9 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class TravelRequest
+class TravelRequest extends Model
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
@@ -17,7 +18,7 @@ class TravelRequest
      * @var list<string>
      */
     protected $fillable = [
-        'solicitor',
+        'solicitor_id',
         'destination',
         'departure_date',
         'return_date',
