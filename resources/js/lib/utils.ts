@@ -1,6 +1,33 @@
-import { type ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+    return twMerge(clsx(inputs));
+}
+
+export function formatDbDate(unformattedDateString: string) {
+    const [year, month, day] = unformattedDateString.split("-");
+    return `${day}-${month}-${year}`;
+}
+
+export function translateStatus(
+    status: "solicited" | "approved" | "cancelled"
+) {
+    switch (status) {
+        case "solicited":
+            return "solicitado";
+        case "approved":
+            return "aprovado";
+        case "cancelled":
+            return "cancelado";
+    }
+}
+
+export function translateAndFormatStatus(
+    status: "solicited" | "approved" | "cancelled"
+) {
+    return (
+        translateStatus(status).charAt(0).toUpperCase() +
+        translateStatus(status).slice(1)
+    );
 }
