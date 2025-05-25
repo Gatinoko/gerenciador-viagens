@@ -72,7 +72,7 @@ function submit() {
         <DialogContent class="sm:max-w-[425px]">
             <!-- Dialog header -->
             <DialogHeader>
-                <DialogTitle>Novo pedido de viagem</DialogTitle>
+                <DialogTitle>Novo Pedido de Viagem</DialogTitle>
                 <DialogDescription>
                     Criar um novo pedido de viagem.
                 </DialogDescription>
@@ -176,9 +176,7 @@ function submit() {
 
                     <!-- Field -->
                     <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="username" class="text-right">
-                            Return date
-                        </Label>
+                        <Label for="returnDate"> Data de volta </Label>
                         <Popover>
                             <PopoverTrigger as-child>
                                 <Button
