@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toast } from "vue-sonner";
 import { translateAndFormatStatus, formatDbDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +15,7 @@ import AppLayout from "@/layouts/AppLayout.vue";
 import Header from "@/components/Header.vue";
 import CreateTravelRequestDialog from "@/components/CreateTravelRequestDialog.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import axios from "axios";
 import ViewTravelRequestDialog from "@/components/ViewTravelRequestDialog.vue";
 
@@ -69,15 +70,24 @@ function tableRowClickHandler(e: PointerEvent) {
             console.log(viewTravelRequestDialogOpen.value);
         });
 }
+
+// Triggers a success toast whenever the user logs in and gets redirected to the dashboard
+watch(
+    () => page.props.flash.message,
+    (v) => {
+        if (v) {
+            setTimeout(() => {
+                toast.success(`${v}`);
+            }, 0);
+        }
+    },
+    { immediate: true }
+);
 </script>
 
 <template>
     <AppLayout>
         <Header text="Dashboard" />
-
-        <span class="text-green-600" v-if="page.props.flash.message">{{
-            page.props.flash.message
-        }}</span>
 
         <!-- User travel request table -->
         <Table>

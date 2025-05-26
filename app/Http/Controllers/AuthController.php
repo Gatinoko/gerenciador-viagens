@@ -43,7 +43,7 @@ class AuthController extends Controller {
         );
 
         // Redirects user to dashboard page with cookie
-        return to_route("show.dashboard")->withCookie($cookie);
+        return to_route("show.dashboard")->withCookie($cookie)->with('message', 'Successfully logged in');
     }
 
     public function register(Request $request) {
