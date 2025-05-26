@@ -11,5 +11,5 @@ import "vue-sonner/style.css";
         <slot />
     </main>
 
-    <Toaster rich-colors />
+    <Toaster rich-colors theme="dark" />
 </template>
