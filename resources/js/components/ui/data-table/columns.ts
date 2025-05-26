@@ -1,3 +1,4 @@
+import DropdownAction from "./DataTableDropdown.vue";
 import { formatDbDate, translateAndFormatStatus } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/vue-table";
 import { h } from "vue";
@@ -63,6 +64,20 @@ export const columns: ColumnDef<TravelRequest>[] = [
                 row.getValue("status")
             );
             return h("div", { class: "" }, formattedStatus);
+        },
+    },
+    {
+        accessorKey: "actions",
+        header: () => h("div", { class: "" }, "Opções"),
+        cell: ({ row }) => {
+            const travelRequestInfo = row.original;
+            return h(
+                "div",
+                { class: "relative" },
+                h(DropdownAction, {
+                    travelRequestInfo,
+                })
+            );
         },
     },
 ];
