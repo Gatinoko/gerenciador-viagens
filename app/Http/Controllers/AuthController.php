@@ -26,7 +26,7 @@ class AuthController extends Controller {
         // If login attempt fails, return appropriate error message
         if (!$token) {
             throw ValidationException::withMessages([
-                'credentials' => 'Incorrect credentials.'
+                'credentials' => 'Email ou senha incorretos'
             ]);
         }
 
@@ -43,7 +43,7 @@ class AuthController extends Controller {
         );
 
         // Redirects user to dashboard page with cookie
-        return to_route("show.dashboard")->withCookie($cookie)->with('message', 'Successfully logged in');
+        return to_route("show.dashboard")->withCookie($cookie)->with('message', 'Usuário logado com sucesso');
     }
 
     public function register(Request $request) {
@@ -63,7 +63,7 @@ class AuthController extends Controller {
         ]);
 
         // Redirects user to index with success message
-        return to_route('show.login')->with('message', 'success');
+        return to_route('show.login')->with('message', 'Usuário registrado com sucesso');
     }
 
     public function logout(Request $request) {
@@ -74,6 +74,6 @@ class AuthController extends Controller {
         $cookie = Cookie::forget('token');
 
         // Redirects user to login and flashes logout message
-        return to_route('show.login')->with('message', 'logged out')->withCookie($cookie);
+        return to_route('show.login')->with('message', 'Usuário deslogado com sucesso')->withCookie($cookie);
     }
 }
