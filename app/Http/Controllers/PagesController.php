@@ -16,10 +16,10 @@ class PagesController extends Controller
 
     public function showDashboard(Request $request) {
         // Gets authenticated user's id
-        $currUserId = $request->user()->only('id');
+        $authUserId = $request->user()->only('id');
 
         // Retrieves respective user's travel requests
-        $userTravelRequests = TravelRequest::where('solicitor_id', $currUserId)->get();
+        $userTravelRequests = TravelRequest::with('user')->where('solicitor_id', $authUserId)->get();
 
         // Returns dashboard view with all user travel requests
         return Inertia::render('Dashboard', [
