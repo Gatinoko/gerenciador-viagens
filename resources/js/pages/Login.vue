@@ -75,7 +75,7 @@ watch(
                         <Input
                             id="password"
                             class="col-span-3"
-                            type="text"
+                            type="password"
                             placeholder="senha123"
                             v-model="form.password"
                         />

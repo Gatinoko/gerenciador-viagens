@@ -71,7 +71,7 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
                         <Input
                             id="password"
                             class="col-span-3"
-                            type="text"
+                            type="password"
                             name="password"
                             placeholder="senha123"
                             v-model="form.password"
@@ -89,7 +89,7 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
                         </Label>
                         <Input
                             class="col-span-3"
-                            type="text"
+                            type="password"
                             name="password_confirmation"
                             placeholder="senha123"
                             v-model="form.passwordConfirmation"
