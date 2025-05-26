@@ -35,9 +35,10 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { computed, reactive, ref, watch } from "vue";
+import { translateAndFormatStatus } from "@/lib/utils";
 
 // Props
-const { errors, user, form } = defineProps({
+const props = defineProps({
     errors: Object,
     user: Object,
     form: Object,
@@ -48,9 +49,12 @@ const departureDate = ref();
 const returnDate = ref();
 watch(
     departureDate,
-    (v) => (form.departureDate = `${v.year}-${v.month}-${v.day}`)
+    (v) => (props.form.departureDate = `${v.year}-${v.month}-${v.day}`)
 );
-watch(returnDate, (v) => (form.returnDate = `${v.year}-${v.month}-${v.day}`));
+watch(
+    returnDate,
+    (v) => (props.form.returnDate = `${v.year}-${v.month}-${v.day}`)
+);
 
 // Date formatter for calendar
 const dateFormatter = new DateFormatter("pt-BR", {
@@ -59,8 +63,8 @@ const dateFormatter = new DateFormatter("pt-BR", {
 
 // Form submit function
 function submit() {
-    form.clearErrors();
-    form.post("/travelRequest/create");
+    props.form.clearErrors();
+    props.form.post("/travelRequest/create");
 }
 </script>
 
@@ -88,13 +92,13 @@ function submit() {
                         class="col-span-3"
                         type="text"
                         name="solicitorName"
-                        v-model="user.name"
+                        v-model="props.user.name"
                         readonly
                         disabled
                     />
                     <span
                         class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
-                        >{{ errors.solicitor }}</span
+                        >{{ props.errors.solicitor }}</span
                     >
                 </div>
 
@@ -107,11 +111,11 @@ function submit() {
                         type="text"
                         name="destination"
                         placeholder="Canada, Marrocos..."
-                        v-model="form.destination"
+                        v-model="props.form.destination"
                     />
                     <span
                         class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
-                        >{{ errors.destination }}</span
+                        >{{ props.errors.destination }}</span
                     >
                 </div>
 
@@ -147,7 +151,7 @@ function submit() {
                         </PopoverContent>
                         <span
                             class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
-                            >{{ errors.departureDate }}</span
+                            >{{ props.errors.departureDate }}</span
                         >
                     </Popover>
                 </div>
@@ -183,7 +187,7 @@ function submit() {
                         </PopoverContent>
                         <span
                             class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
-                            >{{ errors.returnDate }}</span
+                            >{{ props.errors.returnDate }}</span
                         >
                     </Popover>
                 </div>
@@ -191,12 +195,11 @@ function submit() {
                 <!-- Status field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="name" class="text-right"> Status </Label>
-                    <Select v-model="form.status" :disabled="true">
+                    <Select v-model="props.form.status" :disabled="true">
                         <SelectTrigger class="col-span-3 w-full">
                             <SelectValue placeholder="Select a fruit">
                                 {{
-                                    form.status.charAt(0).toUpperCase() +
-                                    form.status.slice(1)
+                                    translateAndFormatStatus(props.form.status)
                                 }}
                             </SelectValue>
                         </SelectTrigger>
@@ -216,7 +219,7 @@ function submit() {
                     </Select>
                     <span
                         class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
-                        >{{ errors.status }}</span
+                        >{{ props.errors.status }}</span
                     >
                 </div>
             </form>
