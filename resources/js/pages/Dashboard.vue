@@ -41,38 +41,6 @@ const form = useForm({
     status: "solicited",
 });
 
-// Ref that stores current travel request data when the user clicks on a table row
-const currentTravelRequestData = ref();
-
-// View travel request dialog ref (for programatic control)
-const viewTravelRequestDialogOpen = ref(false);
-
-// Handler function for clicking in the table row
-function tableRowClickHandler(e: PointerEvent) {
-    // Resets currentTravelRequestData ref
-    currentTravelRequestData.value = {};
-
-    // Gets id
-    const currentTravelRequest = e.currentTarget?.dataset.id;
-
-    // Send get request to endpoint
-    axios
-        .get("/travelRequest/get", {
-            params: {
-                user_id: user.value.id,
-                travel_request_id: currentTravelRequest,
-            },
-        })
-        .then((res) => {
-            currentTravelRequestData.value = res.data;
-            console.log(res.data);
-        })
-        .finally(() => {
-            viewTravelRequestDialogOpen.value = true;
-            console.log(viewTravelRequestDialogOpen.value);
-        });
-}
-
 // Triggers a success toast whenever the user logs in and gets redirected to the dashboard
 watch(
     () => page.props.flash.message,
@@ -92,49 +60,6 @@ watch(
         <template #header>
             <Header v-slot:header text="Dashboard" />
         </template>
-
-        <!-- User travel request table -->
-        <!-- <Table>
-            <TableCaption>Pedidos de viagem de {{ user.name }}.</TableCaption>
-
-            <TableHeader>
-                <TableRow>
-                    <TableHead class="w-[100px]"> ID Pedido </TableHead>
-                    <TableHead>Solicitante</TableHead>
-                    <TableHead>Destino</TableHead>
-                    <TableHead> Data de ida </TableHead>
-                    <TableHead> Data de volta </TableHead>
-                    <TableHead> Status </TableHead>
-                </TableRow>
-            </TableHeader>
-
-            <TableBody>
-                <TableRow
-                    @click="tableRowClickHandler"
-                    :data-id="travelRequest?.id"
-                    v-for="travelRequest in allReqs"
-                >
-                    <TableCell class="font-medium">
-                        {{ travelRequest?.id }}
-                    </TableCell>
-                    <TableCell class="font-medium">
-                        {{ user.name }}
-                    </TableCell>
-                    <TableCell class="font-medium">
-                        {{ travelRequest?.destination }}
-                    </TableCell>
-                    <TableCell class="font-medium">
-                        {{ formatDbDate(travelRequest?.departure_date) }}
-                    </TableCell>
-                    <TableCell class="font-medium">
-                        {{ formatDbDate(travelRequest?.return_date) }}
-                    </TableCell>
-                    <TableCell class="font-medium">
-                        {{ translateAndFormatStatus(travelRequest?.status) }}
-                    </TableCell>
-                </TableRow>
-            </TableBody>
-        </Table> -->
 
         <!-- Create new travel request dialog -->
         <CreateTravelRequestDialog

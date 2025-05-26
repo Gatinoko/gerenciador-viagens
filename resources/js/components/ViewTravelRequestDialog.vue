@@ -30,19 +30,16 @@ import {
 import { computed } from "vue";
 import { translateStatus, translateAndFormatStatus } from "@/lib/utils";
 
-// Props
 const props = defineProps({
-    currentTravelRequestData: Object,
-    viewTravelRequestDialogOpen: Boolean,
+    travelRequestData: Object,
+    travelRequestInfoDialogToggle: Boolean,
 });
-
-// Emits
-const emits = defineEmits(["update:viewTravelRequestDialogOpen"]);
+const emits = defineEmits(["update:travelRequestInfoDialogToggle"]);
 
 // Computed value from parent ref
-const viewTravelRequestDialogOpen = computed({
-    get: () => props.viewTravelRequestDialogOpen,
-    set: (val) => emits("update:viewTravelRequestDialogOpen", val),
+const travelRequestInfoDialogToggle = computed({
+    get: () => props.travelRequestInfoDialogToggle,
+    set: (v) => emits("update:travelRequestInfoDialogToggle", v),
 });
 
 // Date formatter for calendar
@@ -53,15 +50,15 @@ const dateFormatter = new DateFormatter("pt-BR", {
 </script>
 
 <template>
-    <Dialog v-model:open="viewTravelRequestDialogOpen">
+    <Dialog v-model:open="travelRequestInfoDialogToggle">
         <DialogContent class="sm:max-w-[425px]">
             <!-- Dialog header -->
             <DialogHeader>
                 <DialogTitle>Informaçoes Sobre Pedido de Viagem </DialogTitle>
                 <DialogDescription>
                     Informações sobre o pedido de viagem de id
-                    {{ currentTravelRequestData.id }}, feito por
-                    {{ currentTravelRequestData.user.name }}.
+                    {{ travelRequestData.id }}, feito por
+                    {{ travelRequestData.user.name }}.
                 </DialogDescription>
             </DialogHeader>
 
@@ -74,8 +71,8 @@ const dateFormatter = new DateFormatter("pt-BR", {
                         id="solicitor"
                         class="col-span-3"
                         type="text"
+                        v-model="travelRequestData.user.name"
                         name="solicitorName"
-                        v-model="currentTravelRequestData.user.name"
                         disabled
                         readonly
                     />
@@ -91,8 +88,8 @@ const dateFormatter = new DateFormatter("pt-BR", {
                         id="destination"
                         class="col-span-3"
                         type="text"
+                        v-model="travelRequestData.destination"
                         name="destination"
-                        v-model="currentTravelRequestData.destination"
                         placeholder="Canada, Marrocos..."
                         disabled
                         readonly
@@ -116,7 +113,7 @@ const dateFormatter = new DateFormatter("pt-BR", {
                                 {{
                                     dateFormatter.format(
                                         new Date(
-                                            currentTravelRequestData.departure_date
+                                            travelRequestData.departure_date
                                         )
                                     )
                                 }}
@@ -144,9 +141,7 @@ const dateFormatter = new DateFormatter("pt-BR", {
                                 <CalendarIcon class="mr-2 h-4 w-4" />
                                 {{
                                     dateFormatter.format(
-                                        new Date(
-                                            currentTravelRequestData.return_date
-                                        )
+                                        new Date(travelRequestData.return_date)
                                     )
                                 }}
                             </Button>
@@ -163,15 +158,12 @@ const dateFormatter = new DateFormatter("pt-BR", {
                 <!-- Status field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="name"> Status </Label>
-                    <Select
-                        v-model="currentTravelRequestData.status"
-                        :disabled="true"
-                    >
+                    <Select :disabled="true">
                         <SelectTrigger class="col-span-3 w-full">
-                            <SelectValue placeholder="Select a fruit">
+                            <SelectValue class="text-foreground">
                                 {{
                                     translateAndFormatStatus(
-                                        currentTravelRequestData.status
+                                        travelRequestData.status
                                     )
                                 }}
                             </SelectValue>
@@ -195,9 +187,6 @@ const dateFormatter = new DateFormatter("pt-BR", {
                     ></span>
                 </div>
             </form>
-
-            <!-- Dialog footer -->
-            <!-- <DialogFooter></DialogFooter> -->
         </DialogContent>
     </Dialog>
 </template>
