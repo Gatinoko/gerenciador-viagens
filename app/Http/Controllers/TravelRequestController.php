@@ -26,7 +26,7 @@ class TravelRequestController extends Controller
             "status" => $request->status,
         ]);
 
-        return to_route("show.dashboard")->with('message', 'successfully created travel request');
+        return to_route("show.dashboard")->with('message', 'Pedido de viagem criado com sucesso');
     }
 
     public function updateTravelRequest(Request $request) { }
