@@ -29,7 +29,7 @@ watch(
     }
 );
 
-// Triggers a success toast when user registers successfully and gets redirected to login page
+// Triggers a success toast when user registers successfully and gets redirected to login page, or when the user logs out
 watch(
     () => page.props.flash.message,
     (v) => {
