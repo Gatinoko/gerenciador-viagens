@@ -87,7 +87,9 @@ watch(
 
 <template>
     <AppLayout>
-        <Header text="Dashboard" />
+        <template #header>
+            <Header v-slot:header text="Dashboard" />
+        </template>
 
         <!-- User travel request table -->
         <Table>

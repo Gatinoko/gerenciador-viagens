@@ -45,7 +45,9 @@ watch(
 
 <template>
     <AppLayout>
-        <Header text="Login" />
+        <template #header>
+            <Header v-slot:header text="Login" />
+        </template>
 
         <div
             class="p-6 w-100 self-center bg-background rounded-lg border-1 border-border shadow-lg"

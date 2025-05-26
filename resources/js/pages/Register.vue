@@ -23,7 +23,9 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
 
 <template>
     <AppLayout>
-        <Header text="Registro" />
+        <template #header>
+            <Header text="Registro" />
+        </template>
 
         <div
             class="p-6 w-100 self-center bg-background rounded-lg border-1 border-border shadow-lg"

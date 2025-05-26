@@ -7,7 +7,9 @@ import "vue-sonner/style.css";
 <template>
     <Navigation />
 
-    <main class="flex flex-col">
+    <slot name="header"></slot>
+
+    <main class="flex flex-col px-20 pt-10">
         <slot />
     </main>
 
