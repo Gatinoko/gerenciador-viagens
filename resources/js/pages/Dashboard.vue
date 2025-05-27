@@ -43,11 +43,11 @@ const form = useForm({
 
 // Triggers a success toast whenever the user logs in and gets redirected to the dashboard
 watch(
-    () => page.props.flash.message,
+    () => ({ successMessage: page.props.flash.message }),
     (v) => {
-        if (v) {
+        if (v.successMessage) {
             setTimeout(() => {
-                toast.success(`${v}`);
+                toast.success(`${v.successMessage}`);
             }, 0);
         }
     },

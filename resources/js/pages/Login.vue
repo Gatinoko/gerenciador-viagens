@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from "@/layouts/AppLayout.vue";
 import { toast } from "vue-sonner";
-import { Link, useForm, usePage } from "@inertiajs/vue3";
+import { useForm, usePage } from "@inertiajs/vue3";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,11 +31,11 @@ watch(
 
 // Triggers a success toast when user registers successfully and gets redirected to login page, or when the user logs out
 watch(
-    () => page.props.flash.message,
+    () => ({ successMessage: page.props.flash.message }),
     (v) => {
-        if (v) {
+        if (v.successMessage) {
             setTimeout(() => {
-                toast.success(`${v}`);
+                toast.success(`${v.successMessage}`);
             }, 0);
         }
     },
