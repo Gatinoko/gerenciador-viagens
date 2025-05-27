@@ -29,7 +29,26 @@ class TravelRequestController extends Controller
         return to_route("show.dashboard")->with('message', 'Pedido de viagem criado com sucesso');
     }
 
-    public function updateTravelRequest(Request $request) { }
+    public function updateTravelRequestStatus(Request $request) {
+        // Validates form input
+        $request->validate([
+            "travelRequestId" => ['required', 'integer', 'exists:travel_requests,id'],
+            "solicitorId" => ['required', 'integer', 'exists:users,id'],
+            "destination" => ['required', 'string', 'max:64'],
+            "departureDate" => ['required', 'date'],
+            "returnDate" => ['required', 'date', 'after:departureDate'],
+            "status" => ['required', 'in:solicited,approved,cancelled'],
+        ]);
+
+        // Gets travel request id and new status value from request
+        $travelRequestId = $request->request->get('travelRequestId');
+        $newStatusValue = $request->request->get('status');
+
+        // Updates respective travel request status
+        TravelRequest::where('id', $travelRequestId)->update(['status' => $newStatusValue]);
+
+        return to_route("show.dashboard")->with('message', 'Status de pedido atualizado com sucesso');
+    }
 
     public function cancelTravelRequest(Request $request) { }
 

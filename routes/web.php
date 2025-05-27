@@ -23,6 +23,4 @@ Route::post('/logout', [AuthController::class, "logout"])->name("logout")->middl
 // Travel request routes
 Route::post('/travelRequest/create', [TravelRequestController::class, "createTravelRequest"])->name("createTravelRequest");
 Route::get('/travelRequest/get', [TravelRequestController::class, "getUserTravelRequest"])->name("getUserTravelRequest");
-
-Route::post('/travelRequest/update', [TravelRequestController::class, "updateTravelRequest"])->name("updateTravelRequest");
-Route::post('/travelRequest/cancel', [TravelRequestController::class, "cancelTravelRequest"])->name("cancelTravelRequest");
+Route::post('/travelRequest/updateStatus', [TravelRequestController::class, "updateTravelRequestStatus"])->name("updateTravelRequestStatus");
