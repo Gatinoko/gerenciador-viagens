@@ -11,6 +11,5 @@ defineProps({ appName: String });
             <Header v-slot:header text="Início" />
         </template>
         <h1>Welcome to {{ appName }}</h1>
-        <h2>This is the index. TODO.</h2>
     </AppLayout>
 </template>
