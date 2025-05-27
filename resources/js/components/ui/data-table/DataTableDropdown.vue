@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ViewTravelRequestDialog from "@/components/ViewTravelRequestDialog.vue";
+import UpdateTravelRequestStatusDialog from "@/components/UpdateTravelRequestStatusDialog.vue";
 import { MoreHorizontal } from "lucide-vue-next";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,9 +20,17 @@ const props = defineProps({
 // View travel request dialog ref (for programatic control)
 const travelRequestInfoDialogToggle = ref(false);
 
+// View travel request dialog ref (for programatic control)
+const travelRequestStatusUpdateDialogToggle = ref(false);
+
 // Handler function for the "Ver informações do pedido" button
 function viewTravelRequestInfoHandler() {
     travelRequestInfoDialogToggle.value = true;
+}
+
+// Handler function for the "Atualizar status do pedido" button
+function updateTravelRequestStatusHandler() {
+    travelRequestStatusUpdateDialogToggle.value = true;
 }
 </script>
 
@@ -38,6 +47,9 @@ function viewTravelRequestInfoHandler() {
             <DropdownMenuItem @click="viewTravelRequestInfoHandler">
                 Ver informações do pedido
             </DropdownMenuItem>
+            <DropdownMenuItem @click="updateTravelRequestStatusHandler">
+                Atualizar status do pedido
+            </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>
 
@@ -45,6 +57,13 @@ function viewTravelRequestInfoHandler() {
         :travelRequestData="travelRequestInfo"
         v-model:travel-request-info-dialog-toggle="
             travelRequestInfoDialogToggle
+        "
+    />
+
+    <UpdateTravelRequestStatusDialog
+        :travelRequestData="travelRequestInfo"
+        v-model:travel-request-status-update-dialog-toggle="
+            travelRequestStatusUpdateDialogToggle
         "
     />
 </template>

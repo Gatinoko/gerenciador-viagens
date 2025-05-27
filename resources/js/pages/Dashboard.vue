@@ -70,13 +70,6 @@ watch(
             <Button>Novo pedido de viagem</Button>
         </CreateTravelRequestDialog>
 
-        <ViewTravelRequestDialog
-            v-bind:current-travel-request-data="currentTravelRequestData"
-            v-model:view-travel-request-dialog-open="
-                viewTravelRequestDialogOpen
-            "
-        />
-
         <DataTable :columns="columns" :data="allReqs" />
     </AppLayout>
 </template>
