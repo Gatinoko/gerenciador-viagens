@@ -1,61 +1,50 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Gerenciador Viagens
 
-## About Laravel
+## Sobre Mim
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Olá! Meu nome é Gabriel e sou um programador full-stack. A maior parte da minha experiência gira em torno de tecnologias como JavaScript, Typescript, React e Node. Por ser um entusiasta sobre programação, já mexi com diversas frameworks e linguagens diferentes.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Instruções Para Execução do Projeto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Ter instalado PHP >= 8.1, Composer, Node.js, Npm e MySQL
+2. Executar `composer install` e `npm install`
+3. Criar um arquivo `.env` com as mesmas informações do arquivo `.env.example`
+4. Gerar chave do back-end em Laravel executando `php artisan key:generate`
+5. Gerar chave JWT executando `php artisan jwt:secret`
+6. Executar as migrações da database executando `php artisan migrate`
+7. Iniciar o front-end em Vue executando `npm run dev`
+8. Iniciar o back-end em Laravel executando `php artisan serve`
 
-## Learning Laravel
+## Checklist de Requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Requisitos Gerais
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   [ ] Criação de testes automatizados
+-   [ ] Configuração do Docker
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Requisitos Front-end
 
-## Laravel Sponsors
+-   [x] Dashboard com filtragem por destino e status
+-   [x] Formulário para criação de pedidos
+-   [x] Atualização de status diretamente da tabela
+-   [x] Autenticação de usuário usando JWT
+-   [x] Mensagens de feedback para operações feitas pelo usuário
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Requisitos Back-end
 
-### Premium Partners
+-   [x] Endpoint para criação de pedidos
+-   [x] Endpoint para atualizar o status de pedidos
+    -   [ ] Não permitir o usuário que fez o pedido alterar o status do mesmo
+-   [x] Endpoint para consultar um pedido de viagem com base em um ID fornecido
+-   [ ] Listar todos os pedidos de viagem
+-   [ ] Lógica de negócios para cancelar pedidos já aprovados
+-   [ ] Filtragem por período e destino
+-   [ ] Notificações de aprovação ou cancelamento de pedidos
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Considerações Finais
 
-## Contributing
+Por mais que já tivesse um pouco de experiência com as tecnologias requeridas para a execução do projeto, isso foi minha primeira vez criando um pequeno projeto utilizando Laravel, Vue e PHP. Definitivamente não consegui completar todos os requerimentos do projeto, contudo tentei fazer o máximo que pude dentro do tempo estipulado para o desafio técnico. Acredito que se eu tivesse um pouco mais de tempo, conseguiria entregar tudo sem problemas.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Obrigado pela oportunidade!
