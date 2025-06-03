@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 // Page routes
 Route::get('/', [PagesController::class, 'showIndex'])->name("show.index");
 Route::get('/dashboard', [PagesController::class, 'showDashboard'])->name("show.dashboard")->middleware(['auth']);
+Route::get('/adminDashboard', [PagesController::class, 'showAdminDashboard'])->name("show.adminDashboard")->middleware(['auth'])->middleware(['role:admin']);
 Route::get('/login', [PagesController::class, 'showLogin'])->name("show.login")->middleware(['guest']);
 Route::get('/register', [PagesController::class, "showRegister"])->name("show.register")->middleware(['guest']);
 

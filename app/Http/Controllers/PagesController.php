@@ -28,6 +28,20 @@ class PagesController extends Controller
         ]);
     }
 
+    public function showAdminDashboard(Request $request) {
+        // Gets authenticated user's id
+        $authUserId = $request->user()->only('id');
+
+        // Retrieves respective user's travel requests
+        $userTravelRequests = TravelRequest::with('user')->where('solicitor_id', $authUserId)->get();
+
+        // Returns dashboard view with all user travel requests
+        return Inertia::render('AdminDashboard', [
+            'appName' => config('app.name'),
+            'allReqs' => $userTravelRequests,
+        ]);
+    }
+
     public function showLogin(Request $request) {
         return Inertia::render("Login", [
             "appName" => config("app.name"),

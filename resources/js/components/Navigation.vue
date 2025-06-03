@@ -41,6 +41,15 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
                         >
                     </Link>
                 </li>
+                <li>
+                    <Link v-if="user" href="./adminDashboard">
+                        <Button
+                            size="sm"
+                            class="bg-transparent hover:bg-secondary/10"
+                            >Dashboard de Admins</Button
+                        >
+                    </Link>
+                </li>
             </ul>
 
             <!-- <span class="text-red-600" v-if="user">{{ user.email }}</span>
