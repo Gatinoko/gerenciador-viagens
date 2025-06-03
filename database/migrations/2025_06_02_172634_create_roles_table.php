@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Role;
 
 return new class extends Migration
 {
@@ -12,9 +13,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->enum('name', ['user', 'admin'])->unique();
+            $table->enum('role_name', ['user', 'admin'])->unique();
             $table->timestamps();
         });
+
+        // Creates 'user' role
+        Role::create([
+            'role_name' => 'user'
+        ]);
+
+        // Creates 'admin' role
+        Role::create([
+            'role_name' => 'admin'
+        ]);
     }
 
     /**
