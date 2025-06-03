@@ -26,7 +26,13 @@ class TravelRequestController extends Controller
             "status" => $request->status,
         ]);
 
-        return to_route("show.dashboard")->with('message', 'Pedido de viagem criado com sucesso');
+        return to_route('show.dashboard')->with(
+            'toast',
+            [
+                'type' => 'success',
+                'message' => 'Pedido de viagem criado com sucesso'
+            ]
+        );
     }
 
     public function updateTravelRequestStatus(Request $request) {
@@ -47,7 +53,13 @@ class TravelRequestController extends Controller
         // Updates respective travel request status
         TravelRequest::where('id', $travelRequestId)->update(['status' => $newStatusValue]);
 
-        return to_route("show.dashboard")->with('message', 'Status de pedido atualizado com sucesso');
+        return to_route('show.dashboard')->with(
+            'toast',
+            [
+                'type' => 'success',
+                'message' => 'Status de pedido atualizado com sucesso'
+            ]
+        );
     }
 
     public function cancelTravelRequest(Request $request) { }

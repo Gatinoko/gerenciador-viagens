@@ -9,7 +9,13 @@ import Header from "@/components/Header.vue";
 import { watch } from "vue";
 
 const props = defineProps({ appName: String, errors: Object });
-const page = usePage<{ flash: { message: string } }>();
+
+const page = usePage<{
+    toast: {
+        type: string;
+        message: string;
+    };
+}>();
 
 const form = useForm({
     email: "",
@@ -23,7 +29,7 @@ function submit() {
 
 // Triggers a warning toast every time there is a credential error
 watch(
-    () => ({ credentialsError: props.errors.credentials }),
+    () => ({ credentialsError: props.errors?.wrongCredentialsError }),
     (v) => {
         if (v.credentialsError) toast.warning(`${v.credentialsError}`);
     }
@@ -31,13 +37,12 @@ watch(
 
 // Triggers a success toast when user registers successfully and gets redirected to login page, or when the user logs out
 watch(
-    () => ({ successMessage: page.props.flash.message }),
+    () => ({ toast: page.props.toast }),
     (v) => {
-        if (v.successMessage) {
+        if (v.toast.type === "success")
             setTimeout(() => {
-                toast.success(`${v.successMessage}`);
+                toast.success(`${v.toast.message}`);
             }, 0);
-        }
     },
     { immediate: true }
 );

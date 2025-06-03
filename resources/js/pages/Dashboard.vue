@@ -28,8 +28,14 @@ const { appName, allReqs, errors } = defineProps({
     errors: Object,
 });
 
+const page = usePage<{
+    toast: {
+        type: string;
+        message: string;
+    };
+}>();
+
 // Auth user object
-const page = usePage<{ flash: { message: string } }>();
 const user = computed(() => page.props.auth?.user);
 
 // Create travel request dialog form
@@ -43,13 +49,12 @@ const form = useForm({
 
 // Triggers a success toast whenever the user logs in and gets redirected to the dashboard
 watch(
-    () => ({ successMessage: page.props.flash.message }),
+    () => ({ toast: page.props.toast }),
     (v) => {
-        if (v.successMessage) {
+        if (v.toast.type === "success")
             setTimeout(() => {
-                toast.success(`${v.successMessage}`);
+                toast.success(`${v.toast.message}`);
             }, 0);
-        }
     },
     { immediate: true }
 );
