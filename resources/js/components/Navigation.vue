@@ -3,6 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ShieldUser } from "lucide-vue-next";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const page = usePage();
 const user = computed(() => page.props.auth?.user);
@@ -24,6 +31,7 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
         </h1>
 
         <div class="flex w-full justify-between">
+            <!-- Page list -->
             <ul class="flex gap-1">
                 <li>
                     <Link href="/">
@@ -39,7 +47,7 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
                         <Button
                             size="sm"
                             class="bg-transparent hover:bg-secondary/10"
-                            >Dashboard</Button
+                            >Dashboard do Usuário</Button
                         >
                     </Link>
                 </li>
@@ -51,52 +59,70 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
                         <Button
                             size="sm"
                             class="bg-transparent hover:bg-secondary/10"
-                            >Dashboard de Admins</Button
+                            >Dashboard de Administradores</Button
                         >
                     </Link>
                 </li>
             </ul>
 
-            <!-- <span class="text-red-600" v-if="user">{{ user.email }}</span>
-            <span class="text-red-600" v-if="user">{{ user.name }}</span> -->
+            <div class="flex gap-1">
+                <!-- User actions list -->
+                <ul class="flex gap-1">
+                    <li v-if="user">
+                        <Link href="/auth/logout" method="post">
+                            <Button
+                                size="sm"
+                                class="bg-transparent hover:bg-secondary/10"
+                                >Logout</Button
+                            >
+                        </Link>
+                    </li>
+                    <li v-if="!user">
+                        <Link href="/login">
+                            <Button
+                                size="sm"
+                                class="bg-transparent hover:bg-secondary/10"
+                                >Login</Button
+                            >
+                        </Link>
+                    </li>
+                    <li v-if="!user">
+                        <Link href="/register">
+                            <Button
+                                size="sm"
+                                class="bg-transparent hover:bg-secondary/10"
+                                >Registro</Button
+                            >
+                        </Link>
+                    </li>
+                </ul>
 
-            <ul class="flex gap-1">
-                <li>
-                    <Link v-if="user" href="/auth/logout" method="post">
-                        <Button
-                            size="sm"
-                            class="bg-transparent hover:bg-secondary/10"
-                            >Logout</Button
-                        >
-                    </Link>
-                </li>
-                <li>
-                    <Link v-if="!user" href="/login">
-                        <Button
-                            size="sm"
-                            class="bg-transparent hover:bg-secondary/10"
-                            >Login</Button
-                        >
-                    </Link>
-                </li>
-                <li>
-                    <Link v-if="!user" href="/register">
-                        <Button
-                            size="sm"
-                            class="bg-transparent hover:bg-secondary/10"
-                            >Registro</Button
-                        >
-                    </Link>
-                </li>
+                <!-- Avatar and admin indicator -->
+                <div class="flex gap-1">
+                    <Avatar v-if="user">
+                        <AvatarImage
+                            src="https://github.com/unovue.png"
+                            alt="@unovue"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
 
-                <Avatar v-if="user">
-                    <AvatarImage
-                        src="https://github.com/unovue.png"
-                        alt="@unovue"
-                    />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-            </ul>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <ShieldUser
+                                    v-if="user && user.user_role === 'admin'"
+                                    class="self-center"
+                                    color="white"
+                                />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Administrador</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
+            </div>
         </div>
     </nav>
 </template>
