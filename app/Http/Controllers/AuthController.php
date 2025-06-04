@@ -11,7 +11,7 @@ use Inertia\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
 
-class AuthController extends Controller {
+class AuthController {
 
     public function login(Request $request) {
         // Validates input
@@ -84,7 +84,7 @@ class AuthController extends Controller {
         Auth::logout();
 
         // Forgets the token cookie
-        $cookie = Cookie::forget('token');
+        Cookie::forget('token');
 
         // Redirects user to login and flashes logout message
         return to_route('show.login')->with(

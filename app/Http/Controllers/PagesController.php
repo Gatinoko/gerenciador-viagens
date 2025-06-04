@@ -6,12 +6,10 @@ use App\Models\TravelRequest;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
-class PagesController extends Controller
+class PagesController
 {
     public function showIndex(Request $request) {
-        return Inertia::render("Index", [
-            "appName" => config("app.name"),
-        ]);
+        return Inertia::render("Index");
     }
 
     public function showDashboard(Request $request) {
@@ -38,14 +36,10 @@ class PagesController extends Controller
     }
 
     public function showLogin(Request $request) {
-        return Inertia::render("Login", [
-            "appName" => config("app.name"),
-        ]);
+        return Inertia::render("Login");
     }
 
     public function showRegister(Request $request) {
-        return Inertia::render("Register", [
-            "appName" => config("app.name"),
-        ]);
+        return Inertia::render("Register");
     }
 }

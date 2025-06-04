@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TravelRequest;
 use Illuminate\Http\Request;
 
-class TravelRequestController extends Controller
+class TravelRequestController
 {
     public function createTravelRequest(Request $request) {
         // Validates form input
