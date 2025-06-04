@@ -15,7 +15,7 @@ const form = useForm({
 
 function submit() {
     form.clearErrors();
-    form.post("/register");
+    form.post("/auth/register");
 }
 
 const { appName, errors } = defineProps({ appName: String, errors: Object });

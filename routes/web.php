@@ -17,9 +17,9 @@ Route::get('/login', [PagesController::class, 'showLogin'])->name("show.login")-
 Route::get('/register', [PagesController::class, "showRegister"])->name("show.register")->middleware(['guest']);
 
 // Auth routes
-Route::post('/login', [AuthController::class, 'login'])->name("login")->middleware(['guest']);
-Route::post('/register', [AuthController::class, "register"])->name("register")->middleware(['guest']);
-Route::post('/logout', [AuthController::class, "logout"])->name("logout")->middleware(['auth']);
+Route::post('/auth/login', [AuthController::class, 'login'])->name("login")->middleware(['guest']);
+Route::post('/auth/register', [AuthController::class, "register"])->name("register")->middleware(['guest']);
+Route::post('/auth/logout', [AuthController::class, "logout"])->name("logout")->middleware(['auth']);
 
 // Travel request routes
 Route::post('/travelRequest/create', [TravelRequestController::class, "createTravelRequest"])->name("createTravelRequest")->middleware(['auth']);;

@@ -62,7 +62,7 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
 
             <ul class="flex gap-1">
                 <li>
-                    <Link v-if="user" href="/logout" method="post">
+                    <Link v-if="user" href="/auth/logout" method="post">
                         <Button
                             size="sm"
                             class="bg-transparent hover:bg-secondary/10"

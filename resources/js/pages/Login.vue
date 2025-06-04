@@ -24,7 +24,7 @@ const form = useForm({
 
 function submit() {
     form.clearErrors();
-    form.post("/login");
+    form.post("/auth/login");
 }
 
 // Triggers a warning toast every time there is a credential error
