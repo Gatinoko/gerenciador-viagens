@@ -21,10 +21,9 @@ class PagesController extends Controller
         // Retrieves respective user's travel requests
         $userTravelRequests = TravelRequest::with('user')->where('solicitor_id', $authUserId)->get();
 
-        // Returns dashboard view with all user travel requests
+        // Returns dashboard view with the respective user's travel requests
         return Inertia::render('Dashboard', [
-            'appName' => config('app.name'),
-            'allReqs' => $userTravelRequests,
+            'userRequests' => $userTravelRequests,
         ]);
     }
 

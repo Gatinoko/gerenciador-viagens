@@ -22,9 +22,9 @@ import DataTable from "@/components/ui/data-table/DataTable.vue";
 import { columns } from "@/components/ui/data-table/columns";
 
 // Props
-const { appName, allReqs, errors } = defineProps({
+const { appName, userRequests, errors } = defineProps({
     appName: String,
-    allReqs: Array,
+    userRequests: Array,
     errors: Object,
 });
 
@@ -66,7 +66,6 @@ watch(
             <Header v-slot:header text="Dashboard" />
         </template>
 
-        <!-- Create new travel request dialog -->
         <CreateTravelRequestDialog
             v-bind:user="user"
             v-bind:errors="errors"
@@ -77,7 +76,7 @@ watch(
 
         <DataTable
             :columns="columns"
-            :data="allReqs"
+            :data="userRequests"
             :travel-request-update-controls-toggle="false"
         />
     </AppLayout>
