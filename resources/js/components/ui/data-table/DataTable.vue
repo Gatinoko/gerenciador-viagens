@@ -37,6 +37,7 @@ import { ChevronRight, ChevronLeft } from "lucide-vue-next";
 const props = defineProps<{
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+    travelRequestUpdateControlsToggle: boolean;
 }>();
 
 const sorting = ref<SortingState>([]);
@@ -63,6 +64,10 @@ const table = useVueTable({
         get columnFilters() {
             return columnFilters.value;
         },
+    },
+    meta: {
+        travelRequestUpdateControlsToggle:
+            props.travelRequestUpdateControlsToggle,
     },
 });
 </script>

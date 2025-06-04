@@ -66,6 +66,10 @@ watch(
             <Header v-slot:header text="Dashboard de Administradores" />
         </template>
 
-        <DataTable :columns="columns" :data="allReqs" />
+        <DataTable
+            :columns="columns"
+            :data="allReqs"
+            :travel-request-update-controls-toggle="true"
+        />
     </AppLayout>
 </template>

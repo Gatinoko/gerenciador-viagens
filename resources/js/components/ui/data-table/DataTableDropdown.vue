@@ -15,6 +15,7 @@ import { ref } from "vue";
 
 const props = defineProps({
     travelRequestInfo: Object,
+    travelRequestUpdateControlsToggle: Boolean,
 });
 
 // View travel request dialog ref (for programatic control)
@@ -44,10 +45,14 @@ function updateTravelRequestStatusHandler() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
             <DropdownMenuLabel>Opçoes</DropdownMenuLabel>
+            <DropdownMenuSeparator />
             <DropdownMenuItem @click="viewTravelRequestInfoHandler">
                 Ver informações do pedido
             </DropdownMenuItem>
-            <DropdownMenuItem @click="updateTravelRequestStatusHandler">
+            <DropdownMenuItem
+                v-if="props.travelRequestUpdateControlsToggle"
+                @click="updateTravelRequestStatusHandler"
+            >
                 Atualizar status do pedido
             </DropdownMenuItem>
         </DropdownMenuContent>
@@ -61,6 +66,7 @@ function updateTravelRequestStatusHandler() {
     />
 
     <UpdateTravelRequestStatusDialog
+        v-if="props.travelRequestUpdateControlsToggle"
         :travelRequestData="travelRequestInfo"
         v-model:travel-request-status-update-dialog-toggle="
             travelRequestStatusUpdateDialogToggle

@@ -69,13 +69,16 @@ export const columns: ColumnDef<TravelRequest>[] = [
     {
         accessorKey: "actions",
         header: () => h("div", { class: "" }, "Opções"),
-        cell: ({ row }) => {
+        cell: ({ row, table }) => {
             const travelRequestInfo = row.original;
+            const travelRequestUpdateControlsToggle =
+                table.options.meta?.travelRequestUpdateControlsToggle;
             return h(
                 "div",
                 { class: "relative" },
                 h(DropdownAction, {
                     travelRequestInfo,
+                    travelRequestUpdateControlsToggle,
                 })
             );
         },

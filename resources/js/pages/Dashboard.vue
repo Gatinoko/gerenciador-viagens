@@ -75,6 +75,10 @@ watch(
             <Button>Novo pedido de viagem</Button>
         </CreateTravelRequestDialog>
 
-        <DataTable :columns="columns" :data="allReqs" />
+        <DataTable
+            :columns="columns"
+            :data="allReqs"
+            :travel-request-update-controls-toggle="false"
+        />
     </AppLayout>
 </template>
