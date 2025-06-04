@@ -28,16 +28,12 @@ class PagesController extends Controller
     }
 
     public function showAdminDashboard(Request $request) {
-        // Gets authenticated user's id
-        $authUserId = $request->user()->only('id');
-
-        // Retrieves respective user's travel requests
-        $userTravelRequests = TravelRequest::with('user')->where('solicitor_id', $authUserId)->get();
+        // Retrieves all travel requests
+        $allTravelRequests = TravelRequest::with('user')->get();
 
         // Returns dashboard view with all user travel requests
         return Inertia::render('AdminDashboard', [
-            'appName' => config('app.name'),
-            'allReqs' => $userTravelRequests,
+            'allRequests' => $allTravelRequests,
         ]);
     }
 
