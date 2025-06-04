@@ -7,6 +7,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const page = usePage();
 const user = computed(() => page.props.auth?.user);
 
+console.log(page.props.auth);
+
 const { appName, errors } = defineProps({ appName: String, errors: Object });
 </script>
 
@@ -42,7 +44,10 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
                     </Link>
                 </li>
                 <li>
-                    <Link v-if="user" href="./adminDashboard">
+                    <Link
+                        v-if="user && user.user_role === 'admin'"
+                        href="./adminDashboard"
+                    >
                         <Button
                             size="sm"
                             class="bg-transparent hover:bg-secondary/10"
