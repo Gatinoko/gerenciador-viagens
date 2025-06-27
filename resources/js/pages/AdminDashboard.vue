@@ -22,7 +22,7 @@ import DataTable from "@/components/ui/data-table/DataTable.vue";
 import { columns } from "@/components/ui/data-table/columns";
 
 // Props
-const { appName, allRequests, errors } = defineProps({
+const props = defineProps({
     appName: String,
     allRequests: Array,
     errors: Object,
@@ -67,9 +67,11 @@ watch(
         </template>
 
         <DataTable
+            v-bind:errors="props.errors"
             :columns="columns"
-            :data="allRequests"
+            :data="props.allRequests"
             :travel-request-update-controls-toggle="true"
+            :travel-request-solicit-cancellation-controls-toggle="false"
         />
     </AppLayout>
 </template>

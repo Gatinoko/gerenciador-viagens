@@ -22,7 +22,7 @@ import DataTable from "@/components/ui/data-table/DataTable.vue";
 import { columns } from "@/components/ui/data-table/columns";
 
 // Props
-const { appName, userRequests, errors } = defineProps({
+const props = defineProps({
     appName: String,
     userRequests: Array,
     errors: Object,
@@ -68,16 +68,18 @@ watch(
 
         <CreateTravelRequestDialog
             v-bind:user="user"
-            v-bind:errors="errors"
+            v-bind:errors="props.errors"
             v-bind:form="form"
         >
             <Button>Novo pedido de viagem</Button>
         </CreateTravelRequestDialog>
 
         <DataTable
+            v-bind:errors="props.errors"
             :columns="columns"
-            :data="userRequests"
+            :data="props.userRequests"
             :travel-request-update-controls-toggle="false"
+            :travel-request-solicit-cancellation-controls-toggle="true"
         />
     </AppLayout>
 </template>

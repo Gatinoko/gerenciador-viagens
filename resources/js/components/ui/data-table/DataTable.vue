@@ -29,7 +29,7 @@ import {
 } from "@tanstack/vue-table";
 import { Button } from "@/components/ui/button";
 import { valueUpdater } from "../table/utils";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChevronRight, ChevronLeft } from "lucide-vue-next";
@@ -38,7 +38,16 @@ const props = defineProps<{
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
     travelRequestUpdateControlsToggle: boolean;
+    travelRequestSolicitCancellationControlsToggle: boolean;
+    errors: Object;
 }>();
+
+// Emits
+const emits = defineEmits(["update:errors"]);
+const errors = computed({
+    get: () => props.errors,
+    set: (v) => emits("update:errors", v),
+});
 
 const sorting = ref<SortingState>([]);
 const columnFilters = ref<ColumnFiltersState>([]);
@@ -68,6 +77,9 @@ const table = useVueTable({
     meta: {
         travelRequestUpdateControlsToggle:
             props.travelRequestUpdateControlsToggle,
+        travelRequestSolicitCancellationControlsToggle:
+            props.travelRequestSolicitCancellationControlsToggle,
+        errors: errors,
     },
 });
 </script>

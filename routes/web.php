@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CancellationRequestController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\TravelRequestController;
 use App\Models\TravelRequest;
@@ -25,3 +26,6 @@ Route::post('/auth/logout', [AuthController::class, "logout"])->name("logout")->
 Route::post('/travelRequest/create', [TravelRequestController::class, "createTravelRequest"])->name("createTravelRequest")->middleware(['auth']);;
 Route::get('/travelRequest/get', [TravelRequestController::class, "getUserTravelRequest"])->name("getUserTravelRequest")->middleware(['auth']);;
 Route::post('/travelRequest/updateStatus', [TravelRequestController::class, "updateTravelRequestStatus"])->name("updateTravelRequestStatus")->middleware(['auth']);;
+
+// Cancellation request routes
+Route::post('/cancellationRequest/create', [CancellationRequestController::class, "createCancellationRequest"])->name("createCancellationRequest")->middleware(['auth']);;

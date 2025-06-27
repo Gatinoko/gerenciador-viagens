@@ -73,12 +73,18 @@ export const columns: ColumnDef<TravelRequest>[] = [
             const travelRequestInfo = row.original;
             const travelRequestUpdateControlsToggle =
                 table.options.meta?.travelRequestUpdateControlsToggle;
+            const travelRequestSolicitCancellationControlsToggle =
+                table.options.meta
+                    ?.travelRequestSolicitCancellationControlsToggle;
+            const errors = table.options.meta?.errors;
             return h(
                 "div",
                 { class: "relative" },
                 h(DropdownAction, {
                     travelRequestInfo,
                     travelRequestUpdateControlsToggle,
+                    travelRequestSolicitCancellationControlsToggle,
+                    errors: errors,
                 })
             );
         },
