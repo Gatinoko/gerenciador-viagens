@@ -12,8 +12,9 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
+// Props
 const props = defineProps({
     travelRequestInfo: Object,
     travelRequestUpdateControlsToggle: Boolean,
@@ -21,10 +22,10 @@ const props = defineProps({
     errors: Object,
 });
 
-// View travel request dialog ref (for programatic control)
+// Show travel request dialog ref (for programatic control)
 const travelRequestInfoDialogToggle = ref(false);
 
-// View travel request dialog ref (for programatic control)
+// Show travel request status update dialog ref (for programatic control)
 const travelRequestStatusUpdateDialogToggle = ref(false);
 
 // Show solicit travel request cancellation form dialog
@@ -35,7 +36,7 @@ function viewTravelRequestInfoHandler() {
     travelRequestInfoDialogToggle.value = true;
 }
 
-// Handler function for the "Atualizar status do pedido" button
+// Handler function for the "Atualizar status do pedido" button (admin only)
 function updateTravelRequestStatusHandler() {
     travelRequestStatusUpdateDialogToggle.value = true;
 }
