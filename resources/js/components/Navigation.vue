@@ -14,9 +14,7 @@ import {
 const page = usePage();
 const user = computed(() => page.props.auth?.user);
 
-console.log(page.props.auth);
-
-const { appName, errors } = defineProps({ appName: String, errors: Object });
+const props = defineProps({ appName: String, errors: Object });
 </script>
 
 <template>
