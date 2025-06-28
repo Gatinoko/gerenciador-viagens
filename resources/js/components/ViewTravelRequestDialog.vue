@@ -64,6 +64,23 @@ const dateFormatter = new DateFormatter("pt-BR", {
 
             <!-- View travel request form -->
             <form @submit.prevent="submit" class="grid gap-1.5 py-4" novalidate>
+                <!-- Solicitor ID field (read only) -->
+                <div class="grid grid-cols-4 gap-0.5">
+                    <Label for="solicitorId"> ID Solicitante </Label>
+                    <Input
+                        id="solicitor"
+                        class="col-span-3"
+                        type="text"
+                        v-model="travelRequestData.user.id"
+                        name="solicitorId"
+                        disabled
+                        readonly
+                    />
+                    <span
+                        class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
+                    ></span>
+                </div>
+
                 <!-- Solicitor field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorName"> Solicitante </Label>
