@@ -19,7 +19,7 @@ class RoleMiddleware extends Middleware
         $user = $request->user();
 
         if (! $user || ! in_array($user->user_role, $roles)) {
-            abort(403, "Unauthorized $user");
+            abort(403, "Unauthorized user");
         }
 
         return $next($request);
