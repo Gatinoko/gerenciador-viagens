@@ -45,12 +45,12 @@ const travelRequestInfoDialogToggle = computed({
 
 // Create travel request dialog form
 const form = useForm({
-    travelRequestId: props.travelRequestData.id,
-    solicitorId: props.travelRequestData.user.id,
-    destination: props.travelRequestData.destination,
-    departureDate: props.travelRequestData.departure_date,
-    returnDate: props.travelRequestData.return_date,
-    status: props.travelRequestData.status,
+    travelRequestId: props.travelRequestData?.id,
+    solicitorId: props.travelRequestData?.user.id,
+    destination: props.travelRequestData?.destination,
+    departureDate: props.travelRequestData?.departure_date,
+    returnDate: props.travelRequestData?.return_date,
+    status: props.travelRequestData?.status,
 });
 
 // Date formatter for calendar
