@@ -74,11 +74,23 @@ const dateFormatter = new DateFormatter("pt-BR", {
 });
 
 // Form submit function
-function submit() {
-    console.log(form.data());
+function submit(e: Event) {
     form.clearErrors();
     form.post("/cancellationRequest/create");
 }
+
+// Clears shared page errors when closing modal
+watch(
+    () => travelRequestInfoDialogToggle.value,
+    (newValue, oldValue) => {
+        if (newValue === false)
+            router.reload({
+                only: [],
+                preserveState: true,
+                preserveScroll: true,
+            });
+    }
+);
 </script>
 
 <template>
