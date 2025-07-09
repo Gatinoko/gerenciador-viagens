@@ -20,6 +20,7 @@ import axios from "axios";
 import ViewTravelRequestDialog from "@/components/ViewTravelRequestDialog.vue";
 import DataTable from "@/components/ui/data-table/DataTable.vue";
 import { columns } from "@/components/ui/data-table/columns";
+import TravelRequestsDataTable from "@/components/travel-requests-data-table/TravelRequestsDataTable.vue";
 
 // Props
 const props = defineProps({
@@ -66,7 +67,7 @@ watch(
             <Header v-slot:header text="Dashboard de Administradores" />
         </template>
 
-        <DataTable
+        <TravelRequestsDataTable
             v-bind:errors="props.errors"
             :columns="columns"
             :data="props.allRequests"
