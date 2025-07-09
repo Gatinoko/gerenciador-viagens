@@ -253,7 +253,10 @@ watch(
                     />
                     <span
                         class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
-                        >{{ props.errors?.value.requestMessage }}</span
+                        >{{
+                            props.errors?.value.requestMessage ??
+                            props.errors?.value.travelRequestId
+                        }}</span
                     >
                 </div>
             </form>

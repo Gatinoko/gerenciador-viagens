@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cancellation_requests', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('request_id')->unsigned();
+            $table->bigInteger('request_id')->unsigned()->unique();
             $table->foreign('request_id')->references('id')->on('travel_requests');
 
             $table->enum('status', ['approved', 'rejected', 'solicited']);

@@ -11,12 +11,15 @@ class CancellationRequestController
     public function createCancellationRequest(Request $request) {
         // Validates form input
         $request->validate([
+            "travelRequestId" => ['required', 'integer', 'exists:travel_requests,id', 'unique:cancellation_requests,request_id'],
             "solicitorId" => ['required', 'integer', 'exists:users,id'],
             "destination" => ['required', 'string', 'max:64'],
             "departureDate" => ['required', 'date'],
             "returnDate" => ['required', 'date', 'after:departureDate'],
             "status" => ['required', 'in:approved,rejected,solicited'],
             "requestMessage" => ['required', 'string', 'max:64'],
+        ], [
+            "travelRequestId.unique" => 'Cancelamento já solicitado para este pedido de viagem.'
         ]);
 
         // Creates cancellation request in table
