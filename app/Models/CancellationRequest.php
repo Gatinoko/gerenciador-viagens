@@ -16,6 +16,7 @@ class CancellationRequest extends Model
      */
     protected $fillable = [
         'request_id',
+        'status',
         'message',
     ];
 

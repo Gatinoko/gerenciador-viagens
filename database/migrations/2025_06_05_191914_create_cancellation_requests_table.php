@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigInteger('request_id')->unsigned();
             $table->foreign('request_id')->references('id')->on('travel_requests');
 
+            $table->enum('status', ['approved', 'rejected', 'solicited']);
             $table->string('message');
 
             $table->timestamps();

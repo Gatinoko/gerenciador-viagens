@@ -15,13 +15,14 @@ class CancellationRequestController
             "destination" => ['required', 'string', 'max:64'],
             "departureDate" => ['required', 'date'],
             "returnDate" => ['required', 'date', 'after:departureDate'],
-            "status" => ['required', 'in:solicited,approved,cancelled'],
+            "status" => ['required', 'in:approved,rejected,solicited'],
             "requestMessage" => ['required', 'string', 'max:64'],
         ]);
 
         // Creates cancellation request in table
         CancellationRequest::create([
             "request_id" => $request->travelRequestId,
+            "status" => 'solicited',
             "message" => $request->requestMessage,
         ]);
 
