@@ -37,4 +37,26 @@ class CancellationRequestController
             ]
         );
     }
+
+    public function updateCancellationRequestStatus(Request $request) {
+        $request->validate([
+            "cancellationRequestId" => ['required', 'integer', 'exists:cancellation_requests,id'],
+            "associatedTravelRequestId" => ['required', 'integer', 'exists:travel_requests,id'],
+            "message" => ['required', 'string'],
+            "status" => ['required', 'in:approved,rejected,solicited'],
+        ]);
+
+        $cancellationRequestId = $request->request->get('cancellationRequestId');
+        $newStatusValue = $request->request->get('status');
+
+        CancellationRequest::where('id', $cancellationRequestId)->update(['status' => $newStatusValue]);
+
+        return to_route('show.adminDashboard')->with(
+            'toast',
+            [
+                'type' => 'success',
+                'message' => 'Status de cancelamento atualizado com sucesso'
+            ]
+        );
+    }
 }

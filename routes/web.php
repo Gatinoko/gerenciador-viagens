@@ -29,3 +29,4 @@ Route::post('/travelRequest/updateStatus', [TravelRequestController::class, "upd
 
 // Cancellation request routes
 Route::post('/cancellationRequest/create', [CancellationRequestController::class, "createCancellationRequest"])->name("createCancellationRequest")->middleware(['auth']);;
+Route::post('/cancellationRequest/updateStatus', [CancellationRequestController::class, "updateCancellationRequestStatus"])->name("updateCancellationRequestStatus")->middleware(['auth']);;
