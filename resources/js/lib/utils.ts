@@ -11,7 +11,7 @@ export function formatDbDate(unformattedDateString: string) {
 }
 
 export function translateStatus(
-    status: "solicited" | "approved" | "cancelled"
+    status: "solicited" | "approved" | "cancelled" | "rejected"
 ) {
     switch (status) {
         case "solicited":
@@ -20,11 +20,13 @@ export function translateStatus(
             return "aprovado";
         case "cancelled":
             return "cancelado";
+        case "rejected":
+            return "rejeitado";
     }
 }
 
 export function translateAndFormatStatus(
-    status: "solicited" | "approved" | "cancelled"
+    status: "solicited" | "approved" | "cancelled" | "rejected"
 ) {
     return (
         translateStatus(status).charAt(0).toUpperCase() +

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CancellationRequest;
 use App\Models\TravelRequest;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -29,9 +30,13 @@ class PagesController
         // Retrieves all travel requests
         $allTravelRequests = TravelRequest::with('user')->get();
 
+        // Retrieves all travel requests
+        $allCancellationRequests = CancellationRequest::with('travelRequest.user')->get();
+
         // Returns dashboard view with all user travel requests
         return Inertia::render('AdminDashboard', [
             'allRequests' => $allTravelRequests,
+            'allCancellationRequests' => $allCancellationRequests,
         ]);
     }
 

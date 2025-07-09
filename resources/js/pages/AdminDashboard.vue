@@ -1,31 +1,25 @@
 <script setup lang="ts">
 import { toast } from "vue-sonner";
-import { translateAndFormatStatus, formatDbDate } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import {
-    Table,
-    TableCaption,
-    TableHeader,
-    TableRow,
-    TableHead,
-    TableBody,
-    TableCell,
-} from "@/components/ui/table";
 import AppLayout from "@/layouts/AppLayout.vue";
 import Header from "@/components/Header.vue";
-import CreateTravelRequestDialog from "@/components/CreateTravelRequestDialog.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import { computed, ref, watch } from "vue";
-import axios from "axios";
-import ViewTravelRequestDialog from "@/components/ViewTravelRequestDialog.vue";
-import DataTable from "@/components/ui/data-table/DataTable.vue";
-import { columns } from "@/components/ui/data-table/columns";
+import { columns as travelRequestColumns } from "@/components/travel-requests-data-table/columns";
+import { columns as cancellationRequestColumns } from "@/components/cancellation-requests-data-table/columns";
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+} from "@/components/ui/tabs/index";
 import TravelRequestsDataTable from "@/components/travel-requests-data-table/TravelRequestsDataTable.vue";
+import CancellationRequestsDataTable from "@/components/cancellation-requests-data-table/CancellationRequestsDataTable.vue";
 
 // Props
 const props = defineProps({
     appName: String,
     allRequests: Array,
+    allCancellationRequests: Array,
     errors: Object,
 });
 
@@ -38,15 +32,6 @@ const page = usePage<{
 
 // Auth user object
 const user = computed(() => page.props.auth?.user);
-
-// Create travel request dialog form
-const form = useForm({
-    solicitorId: user.value.id,
-    destination: "",
-    departureDate: "",
-    returnDate: "",
-    status: "solicited",
-});
 
 // Triggers a success toast whenever the user logs in and gets redirected to the dashboard
 watch(
@@ -67,12 +52,32 @@ watch(
             <Header v-slot:header text="Dashboard de Administradores" />
         </template>
 
-        <TravelRequestsDataTable
-            v-bind:errors="props.errors"
-            :columns="columns"
-            :data="props.allRequests"
-            :travel-request-update-controls-toggle="true"
-            :travel-request-solicit-cancellation-controls-toggle="false"
-        />
+        <Tabs default-value="travel-requests">
+            <TabsList>
+                <TabsTrigger value="travel-requests">
+                    Travel Requests
+                </TabsTrigger>
+                <TabsTrigger value="cancellation-requests">
+                    Cancellation Requests
+                </TabsTrigger>
+            </TabsList>
+            <TabsContent value="travel-requests">
+                <TravelRequestsDataTable
+                    v-bind:errors="props.errors"
+                    :columns="travelRequestColumns"
+                    :data="props.allRequests"
+                    :travel-request-update-controls-toggle="true"
+                    :travel-request-solicit-cancellation-controls-toggle="false"
+                />
+            </TabsContent>
+            <TabsContent value="cancellation-requests">
+                <CancellationRequestsDataTable
+                    v-bind:errors="props.errors"
+                    :columns="cancellationRequestColumns"
+                    :data="props.allCancellationRequests"
+                    :cancellation-request-update-controls-toggle="true"
+                />
+            </TabsContent>
+        </Tabs>
     </AppLayout>
 </template>
