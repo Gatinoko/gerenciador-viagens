@@ -14,15 +14,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { computed, ref } from "vue";
 import UpdateTravelRequestCancellationDialog from "../UpdateTravelRequestCancellationDialog.vue";
+import ViewTravelRequestCancellationDialog from "../ViewTravelRequestCancellationDialog.vue";
 
 const props = defineProps({
     cancellationRequestInfo: Object,
-    cancellationRequestUpdateControlsToggle: Boolean,
     errors: Object,
 });
 
 const associatedTravelRequestInfoDialogToggle = ref(false);
 const cancellationRequestStatusUpdateDialogToggle = ref(false);
+const cancellationRequestInfoDialogToggle = ref(false);
 
 function viewAssociatedTravelRequestInfoHandler() {
     associatedTravelRequestInfoDialogToggle.value = true;
@@ -30,6 +31,10 @@ function viewAssociatedTravelRequestInfoHandler() {
 
 function updateCancellationRequestStatusHandler() {
     cancellationRequestStatusUpdateDialogToggle.value = true;
+}
+
+function viewCancellationRequestInfoHandler() {
+    cancellationRequestInfoDialogToggle.value = true;
 }
 </script>
 
@@ -44,17 +49,24 @@ function updateCancellationRequestStatusHandler() {
         <DropdownMenuContent align="end">
             <DropdownMenuLabel>Opçoes</DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <DropdownMenuItem @click="viewCancellationRequestInfoHandler">
+                Ver informações da solicitação
+            </DropdownMenuItem>
             <DropdownMenuItem @click="viewAssociatedTravelRequestInfoHandler">
                 Ver informações do pedido associado
             </DropdownMenuItem>
-            <DropdownMenuItem
-                v-if="props.cancellationRequestUpdateControlsToggle"
-                @click="updateCancellationRequestStatusHandler"
-            >
+            <DropdownMenuItem @click="updateCancellationRequestStatusHandler">
                 Atualizar status da solicitação
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>
+
+    <ViewTravelRequestCancellationDialog
+        :cancellationRequestData="props.cancellationRequestInfo"
+        v-model:cancellation-request-info-dialog-toggle="
+            cancellationRequestInfoDialogToggle
+        "
+    />
 
     <ViewTravelRequestDialog
         :travelRequestData="props.cancellationRequestInfo?.travel_request"
@@ -64,7 +76,6 @@ function updateCancellationRequestStatusHandler() {
     />
 
     <UpdateTravelRequestCancellationDialog
-        v-if="props.cancellationRequestUpdateControlsToggle"
         :cancellationRequestData="props.cancellationRequestInfo"
         v-model:travel-request-cancellation-status-update-dialog-toggle="
             cancellationRequestStatusUpdateDialogToggle

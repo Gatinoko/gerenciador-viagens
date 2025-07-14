@@ -57,15 +57,12 @@ export const columns: ColumnDef<TravelRequest>[] = [
         header: () => h("div", { class: "" }, "Opções"),
         cell: ({ row, table }) => {
             const cancellationRequestInfo = row.original;
-            const cancellationRequestUpdateControlsToggle =
-                table.options.meta?.cancellationRequestUpdateControlsToggle;
             const errors = table.options.meta?.errors;
             return h(
                 "div",
                 { class: "relative" },
                 h(DropdownAction, {
                     cancellationRequestInfo,
-                    cancellationRequestUpdateControlsToggle,
                     errors,
                 })
             );
