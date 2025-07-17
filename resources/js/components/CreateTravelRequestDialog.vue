@@ -37,14 +37,12 @@ import {
 import { computed, reactive, ref, watch } from "vue";
 import { translateAndFormatStatus } from "@/lib/utils";
 
-// Props
 const props = defineProps({
     errors: Object,
     user: Object,
     form: Object,
 });
 
-// Calendar value workaround
 const departureDate = ref();
 const returnDate = ref();
 watch(
@@ -56,12 +54,10 @@ watch(
     (v) => (props.form.returnDate = `${v.year}-${v.month}-${v.day}`)
 );
 
-// Date formatter for calendar
 const dateFormatter = new DateFormatter("pt-BR", {
     dateStyle: "long",
 });
 
-// Form submit function
 function submit() {
     props.form.clearErrors();
     props.form.post("/travelRequest/create");
@@ -74,17 +70,13 @@ function submit() {
             <slot />
         </DialogTrigger>
         <DialogContent class="sm:max-w-[425px]">
-            <!-- Dialog header -->
             <DialogHeader>
                 <DialogTitle>Novo Pedido de Viagem</DialogTitle>
                 <DialogDescription>
                     Criar um novo pedido de viagem.
                 </DialogDescription>
             </DialogHeader>
-
-            <!-- Create travel request form -->
             <form @submit.prevent="submit" class="grid gap-1.5 py-4" novalidate>
-                <!-- Solicitor field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorName"> Solicitante </Label>
                     <Input
@@ -102,7 +94,6 @@ function submit() {
                     >
                 </div>
 
-                <!-- Destination field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="destination"> Destino </Label>
                     <Input
@@ -119,7 +110,6 @@ function submit() {
                     >
                 </div>
 
-                <!-- Departure field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="departureDate"> Data de ida </Label>
                     <Popover>
@@ -156,7 +146,6 @@ function submit() {
                     </Popover>
                 </div>
 
-                <!-- Return field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="returnDate"> Data de volta </Label>
                     <Popover>
@@ -192,7 +181,6 @@ function submit() {
                     </Popover>
                 </div>
 
-                <!-- Status field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="name" class="text-right"> Status </Label>
                     <Select v-model="props.form.status" :disabled="true">
@@ -223,8 +211,6 @@ function submit() {
                     >
                 </div>
             </form>
-
-            <!-- Dialog footer -->
             <DialogFooter>
                 <!-- Form submit button -->
                 <Button @click="submit" class="w-full">

@@ -53,14 +53,11 @@ watch(
         <template #header>
             <Header v-slot:header text="Login" />
         </template>
-
         <div
             class="p-6 w-100 self-center bg-background rounded-lg border-1 border-border shadow-lg"
         >
-            <!-- Login form -->
             <form @submit.prevent="submit" novalidate class="grid gap-3">
                 <div class="grid gap-1.5">
-                    <!-- Email field -->
                     <div class="grid gap-0.5">
                         <Label for="email"> Email </Label>
                         <Input
@@ -76,7 +73,6 @@ watch(
                         >
                     </div>
 
-                    <!-- Password field -->
                     <div class="grid gap-0.5">
                         <Label for="senha"> Senha </Label>
                         <Input
@@ -91,8 +87,6 @@ watch(
                         }}</span>
                     </div>
                 </div>
-
-                <!-- Login button -->
                 <Button>Login</Button>
             </form>
         </div>

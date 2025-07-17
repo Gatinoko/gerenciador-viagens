@@ -36,13 +36,11 @@ const props = defineProps({
 });
 const emits = defineEmits(["update:travelRequestInfoDialogToggle"]);
 
-// Computed value from parent ref
 const travelRequestInfoDialogToggle = computed({
     get: () => props.travelRequestInfoDialogToggle,
     set: (v) => emits("update:travelRequestInfoDialogToggle", v),
 });
 
-// Date formatter for calendar
 const dateFormatter = new DateFormatter("pt-BR", {
     dateStyle: "long",
     timeZone: "UTC",
@@ -52,7 +50,6 @@ const dateFormatter = new DateFormatter("pt-BR", {
 <template>
     <Dialog v-model:open="travelRequestInfoDialogToggle">
         <DialogContent class="sm:max-w-[425px]">
-            <!-- Dialog header -->
             <DialogHeader>
                 <DialogTitle>Informaçoes Sobre Pedido de Viagem </DialogTitle>
                 <DialogDescription>
@@ -61,10 +58,7 @@ const dateFormatter = new DateFormatter("pt-BR", {
                     {{ travelRequestData.user.name }}.
                 </DialogDescription>
             </DialogHeader>
-
-            <!-- View travel request form -->
             <form @submit.prevent="submit" class="grid gap-1.5 py-4" novalidate>
-                <!-- Solicitor ID field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorId"> ID Solicitante </Label>
                     <Input
@@ -81,7 +75,6 @@ const dateFormatter = new DateFormatter("pt-BR", {
                     ></span>
                 </div>
 
-                <!-- Solicitor field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorName"> Solicitante </Label>
                     <Input
@@ -98,7 +91,6 @@ const dateFormatter = new DateFormatter("pt-BR", {
                     ></span>
                 </div>
 
-                <!-- Destination field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="destination"> Destino </Label>
                     <Input
@@ -116,7 +108,6 @@ const dateFormatter = new DateFormatter("pt-BR", {
                     ></span>
                 </div>
 
-                <!-- Departure field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="departureDate"> Data de ida </Label>
                     <Popover>
@@ -145,7 +136,6 @@ const dateFormatter = new DateFormatter("pt-BR", {
                     </Popover>
                 </div>
 
-                <!-- Return field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="returnDate"> Data de volta </Label>
                     <Popover>
@@ -172,7 +162,6 @@ const dateFormatter = new DateFormatter("pt-BR", {
                     </Popover>
                 </div>
 
-                <!-- Status field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="name"> Status </Label>
                     <Select :disabled="true">

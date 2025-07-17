@@ -26,7 +26,6 @@ const props = defineProps({
 });
 const emits = defineEmits(["update:cancellationRequestInfoDialogToggle"]);
 
-// Computed value from parent ref
 const cancellationRequestInfoDialogToggle = computed({
     get: () => props.cancellationRequestInfoDialogToggle,
     set: (v) => emits("update:cancellationRequestInfoDialogToggle", v),
@@ -36,7 +35,6 @@ const cancellationRequestInfoDialogToggle = computed({
 <template>
     <Dialog v-model:open="cancellationRequestInfoDialogToggle">
         <DialogContent class="sm:max-w-[425px]">
-            <!-- Dialog header -->
             <DialogHeader>
                 <DialogTitle
                     >Informaçoes Sobre Solicitação de Cancelamento
@@ -49,9 +47,7 @@ const cancellationRequestInfoDialogToggle = computed({
                     }}.
                 </DialogDescription>
             </DialogHeader>
-
             <form class="grid gap-1.5 py-4" novalidate>
-                <!-- Cancellation request ID field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorId"> ID Solicitação </Label>
                     <Input
@@ -70,7 +66,6 @@ const cancellationRequestInfoDialogToggle = computed({
                     ></span>
                 </div>
 
-                <!-- Associated request ID field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorName"> ID Pedido Associado </Label>
                     <Input
@@ -89,7 +84,6 @@ const cancellationRequestInfoDialogToggle = computed({
                     ></span>
                 </div>
 
-                <!-- Solicitor name field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorName"> Nome do Solicitante </Label>
                     <Input
@@ -109,7 +103,6 @@ const cancellationRequestInfoDialogToggle = computed({
                     ></span>
                 </div>
 
-                <!-- Status field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="name"> Status </Label>
                     <Select :disabled="true">
@@ -141,7 +134,6 @@ const cancellationRequestInfoDialogToggle = computed({
                     ></span>
                 </div>
 
-                <!-- Message -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="message"> Mensagem </Label>
                     <Textarea

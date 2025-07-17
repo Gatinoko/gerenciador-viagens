@@ -15,7 +15,6 @@ import {
 import TravelRequestsDataTable from "@/components/travel-requests-data-table/TravelRequestsDataTable.vue";
 import CancellationRequestsDataTable from "@/components/cancellation-requests-data-table/CancellationRequestsDataTable.vue";
 
-// Props
 const props = defineProps({
     appName: String,
     allRequests: Array,
@@ -29,8 +28,6 @@ const page = usePage<{
         message: string;
     };
 }>();
-
-// Auth user object
 const user = computed(() => page.props.auth?.user);
 
 // Triggers a success toast whenever the user logs in and gets redirected to the dashboard

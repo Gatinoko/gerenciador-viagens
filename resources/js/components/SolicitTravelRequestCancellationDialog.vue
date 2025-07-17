@@ -38,26 +38,22 @@ import { computed, reactive, ref, watch } from "vue";
 import { translateAndFormatStatus } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 
-// Props
 const props = defineProps({
     travelRequestData: Object,
     solicitTravelRequestCancellationFormDialogToggle: Boolean,
     errors: Object,
 });
 
-// Emits
 const emits = defineEmits([
     "update:solicitTravelRequestCancellationFormDialogToggle",
 ]);
 
-// Computed value from parent ref
 const travelRequestInfoDialogToggle = computed({
     get: () => props.solicitTravelRequestCancellationFormDialogToggle,
     set: (v) =>
         emits("update:solicitTravelRequestCancellationFormDialogToggle", v),
 });
 
-// Create travel request dialog form
 const form = useForm({
     travelRequestId: props.travelRequestData?.id,
     solicitorId: props.travelRequestData?.user.id,
@@ -68,12 +64,10 @@ const form = useForm({
     requestMessage: "",
 });
 
-// Date formatter for calendar
 const dateFormatter = new DateFormatter("pt-BR", {
     dateStyle: "long",
 });
 
-// Form submit function
 function submit(e: Event) {
     form.clearErrors();
     form.post("/cancellationRequest/create");
@@ -96,7 +90,6 @@ watch(
 <template>
     <Dialog v-model:open="travelRequestInfoDialogToggle">
         <DialogContent class="sm:max-w-[425px]">
-            <!-- Dialog header -->
             <DialogHeader>
                 <DialogTitle>Solicitar Cancelamento</DialogTitle>
                 <DialogDescription>
@@ -104,8 +97,6 @@ watch(
                     criado por Y.
                 </DialogDescription>
             </DialogHeader>
-
-            <!-- Solicit travel request cancellation form -->
             <form @submit.prevent="submit" class="grid gap-1.5 py-4" novalidate>
                 <!-- Solicitor ID field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
@@ -124,7 +115,6 @@ watch(
                     ></span>
                 </div>
 
-                <!-- Solicitor field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorName"> Solicitante </Label>
                     <Input
@@ -141,7 +131,6 @@ watch(
                     ></span>
                 </div>
 
-                <!-- Destination field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="destination"> Destino </Label>
                     <Input
@@ -159,7 +148,6 @@ watch(
                     ></span>
                 </div>
 
-                <!-- Departure field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="departureDate"> Data de ida </Label>
                     <Popover>
@@ -186,7 +174,6 @@ watch(
                     </Popover>
                 </div>
 
-                <!-- Return field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="returnDate"> Data de volta </Label>
                     <Popover>
@@ -213,7 +200,6 @@ watch(
                     </Popover>
                 </div>
 
-                <!-- Status field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="name"> Status </Label>
                     <Select :disabled="true">
@@ -241,7 +227,6 @@ watch(
                     ></span>
                 </div>
 
-                <!-- Request message -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="requestMessage"> Mensagem </Label>
                     <Textarea
@@ -260,8 +245,6 @@ watch(
                     >
                 </div>
             </form>
-
-            <!-- Dialog footer -->
             <DialogFooter>
                 <!-- Form submit button -->
                 <Button @click="submit" variant="destructive" class="w-full">

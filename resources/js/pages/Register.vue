@@ -26,14 +26,11 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
         <template #header>
             <Header text="Registro" />
         </template>
-
         <div
             class="p-6 w-100 self-center bg-background rounded-lg border-1 border-border shadow-lg"
         >
-            <!-- Register form -->
             <form @submit.prevent="submit" novalidate class="grid gap-3">
                 <div class="grid gap-1.5">
-                    <!-- Name field -->
                     <div class="grid gap-0.5">
                         <Label for="name"> Nome </Label>
                         <Input
@@ -50,7 +47,6 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
                         >
                     </div>
 
-                    <!-- Email field -->
                     <div class="grid gap-0.5">
                         <Label for="email"> Email </Label>
                         <Input
@@ -67,7 +63,6 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
                         >
                     </div>
 
-                    <!-- Password -->
                     <div class="grid gap-0.5">
                         <Label for="password"> Senha </Label>
                         <Input
@@ -84,7 +79,6 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
                         >
                     </div>
 
-                    <!-- Confirm password -->
                     <div class="grid gap-0.5">
                         <Label for="password_confirmation">
                             Confirmar senha
@@ -102,8 +96,6 @@ const { appName, errors } = defineProps({ appName: String, errors: Object });
                         >
                     </div>
                 </div>
-
-                <!-- Submit button -->
                 <Button>Registrar</Button>
             </form>
         </div>

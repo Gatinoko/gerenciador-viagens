@@ -21,7 +21,6 @@ const props = defineProps({ appName: String, errors: Object });
     <nav
         class="bg-primary py-2 px-12 flex border-b-1 gap-6 border-neutral-600 shadow-md"
     >
-        <!-- Application name -->
         <h1
             class="self-center font-semibold text-primary-foreground text-nowrap select-none"
         >
@@ -29,7 +28,6 @@ const props = defineProps({ appName: String, errors: Object });
         </h1>
 
         <div class="flex w-full justify-between">
-            <!-- Page list -->
             <ul class="flex gap-1">
                 <li>
                     <Link href="/">
@@ -64,7 +62,6 @@ const props = defineProps({ appName: String, errors: Object });
             </ul>
 
             <div class="flex gap-1">
-                <!-- User actions list -->
                 <ul class="flex gap-1">
                     <li v-if="user">
                         <Link href="/auth/logout" method="post">
@@ -95,7 +92,6 @@ const props = defineProps({ appName: String, errors: Object });
                     </li>
                 </ul>
 
-                <!-- Avatar and admin indicator -->
                 <div class="flex gap-1">
                     <Avatar v-if="user">
                         <AvatarImage
@@ -104,7 +100,6 @@ const props = defineProps({ appName: String, errors: Object });
                         />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger>

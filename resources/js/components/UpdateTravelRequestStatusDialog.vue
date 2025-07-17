@@ -37,13 +37,11 @@ const props = defineProps({
 });
 const emits = defineEmits(["update:travelRequestStatusUpdateDialogToggle"]);
 
-// Computed value from parent ref
 const travelRequestInfoDialogToggle = computed({
     get: () => props.travelRequestStatusUpdateDialogToggle,
     set: (v) => emits("update:travelRequestStatusUpdateDialogToggle", v),
 });
 
-// Create travel request dialog form
 const form = useForm({
     travelRequestId: props.travelRequestData?.id,
     solicitorId: props.travelRequestData?.user.id,
@@ -53,16 +51,13 @@ const form = useForm({
     status: props.travelRequestData?.status,
 });
 
-// Date formatter for calendar
 const dateFormatter = new DateFormatter("pt-BR", {
     dateStyle: "long",
     timeZone: "UTC",
 });
 
-// Form submit function
 function submit() {
     form.clearErrors();
-    // console.log(form.data());
     form.post("/travelRequest/updateStatus");
 }
 </script>
@@ -70,7 +65,6 @@ function submit() {
 <template>
     <Dialog v-model:open="travelRequestInfoDialogToggle">
         <DialogContent class="sm:max-w-[425px]">
-            <!-- Dialog header -->
             <DialogHeader>
                 <DialogTitle>Atualizar Status do Pedido de Viagem </DialogTitle>
                 <DialogDescription>
@@ -78,10 +72,7 @@ function submit() {
                     {{ travelRequestData.id }}.
                 </DialogDescription>
             </DialogHeader>
-
-            <!-- Update travel request status form -->
             <form @submit.prevent="submit" class="grid gap-1.5 py-4" novalidate>
-                <!-- Solicitor field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorName"> Solicitante </Label>
                     <Input
@@ -98,7 +89,6 @@ function submit() {
                     ></span>
                 </div>
 
-                <!-- Destination field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="destination"> Destino </Label>
                     <Input
@@ -116,7 +106,6 @@ function submit() {
                     ></span>
                 </div>
 
-                <!-- Departure field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="departureDate"> Data de ida </Label>
                     <Popover>
@@ -145,7 +134,6 @@ function submit() {
                     </Popover>
                 </div>
 
-                <!-- Return field -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="returnDate"> Data de volta </Label>
                     <Popover>
@@ -172,7 +160,6 @@ function submit() {
                     </Popover>
                 </div>
 
-                <!-- Status field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="name"> Status </Label>
                     <Select v-model="form.status">
@@ -200,8 +187,6 @@ function submit() {
                     ></span>
                 </div>
             </form>
-
-            <!-- Dialog footer -->
             <DialogFooter>
                 <!-- Form submit button -->
                 <Button class="w-full" @click="submit">
