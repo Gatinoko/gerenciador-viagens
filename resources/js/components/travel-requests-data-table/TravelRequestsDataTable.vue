@@ -46,10 +46,8 @@ const errors = computed({
     get: () => props.errors,
     set: (v) => emits("update:errors", v),
 });
-
 const sorting = ref<SortingState>([]);
 const columnFilters = ref<ColumnFiltersState>([]);
-
 const table = useVueTable({
     get data() {
         return props.data;

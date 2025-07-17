@@ -21,7 +21,6 @@ const props = defineProps({
     allCancellationRequests: Array,
     errors: Object,
 });
-
 const page = usePage<{
     toast: {
         type: string;
@@ -48,7 +47,6 @@ watch(
         <template #header>
             <Header v-slot:header text="Dashboard de Administradores" />
         </template>
-
         <Tabs default-value="travel-requests">
             <TabsList>
                 <TabsTrigger value="travel-requests">
@@ -58,6 +56,7 @@ watch(
                     Cancellation Requests
                 </TabsTrigger>
             </TabsList>
+
             <TabsContent value="travel-requests">
                 <TravelRequestsDataTable
                     v-bind:errors="props.errors"
@@ -67,6 +66,7 @@ watch(
                     :travel-request-solicit-cancellation-controls-toggle="false"
                 />
             </TabsContent>
+
             <TabsContent value="cancellation-requests">
                 <CancellationRequestsDataTable
                     v-bind:errors="props.errors"

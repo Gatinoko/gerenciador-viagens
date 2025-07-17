@@ -26,11 +26,9 @@ const cancellationRequestInfoDialogToggle = ref(false);
 function viewAssociatedTravelRequestInfoHandler() {
     associatedTravelRequestInfoDialogToggle.value = true;
 }
-
 function updateCancellationRequestStatusHandler() {
     cancellationRequestStatusUpdateDialogToggle.value = true;
 }
-
 function viewCancellationRequestInfoHandler() {
     cancellationRequestInfoDialogToggle.value = true;
 }
