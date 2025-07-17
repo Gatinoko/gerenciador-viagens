@@ -1,5 +1,13 @@
 <script setup lang="ts" generic="TData, TValue">
 import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import {
     Table,
     TableHeader,
     TableRow,
@@ -21,6 +29,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { valueUpdater } from "../ui/table/utils";
 import { computed, ref } from "vue";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { ChevronRight, ChevronLeft } from "lucide-vue-next";
 
 const props = defineProps<{
@@ -35,10 +45,8 @@ const errors = computed({
     get: () => props.errors,
     set: (v) => emits("update:errors", v),
 });
-
 const sorting = ref<SortingState>([]);
 const columnFilters = ref<ColumnFiltersState>([]);
-
 const table = useVueTable({
     get data() {
         return props.data;
@@ -70,6 +78,44 @@ const table = useVueTable({
 </script>
 <template>
     <div class="flex items-center py-4 w-full gap-6 h-max">
+        <div class="grid gap-0.5 w-full">
+            <Label for="destinationFilter">Filtrar por mensagem</Label>
+            <Input
+                name="destinationFilter"
+                placeholder="Tivemos um imprevisto no..."
+                :model-value="table.getColumn('message')?.getFilterValue() as string"
+                @update:model-value="
+                    table.getColumn('message')?.setFilterValue($event)
+                "
+            />
+        </div>
+        <div class="flex flex-col gap-0.5 min-w-40 max-w-45">
+            <Label for="statusFilter">Filtrar por status</Label>
+            <Select
+                name="statusFilter"
+                class="min-w-3"
+                default-value="noFiltering"
+                @update:model-value="
+                    if ($event !== 'noFiltering')
+                        table.getColumn('status')?.setFilterValue($event);
+                    else table.getColumn('status')?.setFilterValue(null);
+                "
+            >
+                <SelectTrigger class="col-span-3 w-full">
+                    <SelectValue></SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectGroup>
+                        <SelectItem value="noFiltering">
+                            Sem filtragem
+                        </SelectItem>
+                        <SelectItem value="solicited"> Solicitado </SelectItem>
+                        <SelectItem value="approved"> Aprovado </SelectItem>
+                        <SelectItem value="rejected"> Rejeitado </SelectItem>
+                    </SelectGroup>
+                </SelectContent>
+            </Select>
+        </div>
         <div class="flex gap-1 self-end">
             <Button
                 variant="outline"
