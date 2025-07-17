@@ -18,7 +18,6 @@ import {
 import {
     FlexRender,
     getCoreRowModel,
-    getExpandedRowModel,
     getPaginationRowModel,
     useVueTable,
     type ColumnDef,
