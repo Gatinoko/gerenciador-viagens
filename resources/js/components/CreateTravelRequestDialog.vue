@@ -41,31 +41,55 @@ const props = defineProps({
     errors: Object,
     user: Object,
     form: Object,
+const emits = defineEmits(["update:createTravelRequestDialogToggle"]);
+
+const createTravelRequestDialogToggle = computed({
+    get: () => props.createTravelRequestDialogToggle,
+    set: (v) => emits("update:createTravelRequestDialogToggle", v),
 });
 
 const departureDate = ref();
 const returnDate = ref();
-watch(
-    departureDate,
-    (v) => (props.form.departureDate = `${v.year}-${v.month}-${v.day}`)
-);
-watch(
-    returnDate,
-    (v) => (props.form.returnDate = `${v.year}-${v.month}-${v.day}`)
-);
+
+const form = useForm({
+    solicitorId: props.user.id,
+    destination: "",
+    departureDate: "",
+    returnDate: "",
+    status: "solicited",
+});
 
 const dateFormatter = new DateFormatter("pt-BR", {
     dateStyle: "long",
 });
 
 function submit() {
-    props.form.clearErrors();
-    props.form.post("/travelRequest/create");
+    form.clearErrors();
+    form.post("/travelRequest/create");
 }
+
+watch(
+    departureDate,
+    (v) => (form.departureDate = `${v.year}-${v.month}-${v.day}`)
+);
+watch(returnDate, (v) => (form.returnDate = `${v.year}-${v.month}-${v.day}`));
+
+// Clears shared page errors when closing modal
+watch(
+    () => createTravelRequestDialogToggle.value,
+    (newValue, oldValue) => {
+        if (newValue === false)
+            router.reload({
+                only: [],
+                preserveState: true,
+                preserveScroll: true,
+            });
+    }
+);
 </script>
 
 <template>
-    <Dialog>
+    <Dialog v-model:open="createTravelRequestDialogToggle">
         <DialogTrigger as-child>
             <slot />
         </DialogTrigger>
@@ -102,7 +126,7 @@ function submit() {
                         type="text"
                         name="destination"
                         placeholder="Canada, Marrocos..."
-                        v-model="props.form.destination"
+                        v-model="form.destination"
                     />
                     <span
                         class="text-red-600 text-xs h-4 w-full block col-start-2 col-span-3"
@@ -183,12 +207,10 @@ function submit() {
 
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="name" class="text-right"> Status </Label>
-                    <Select v-model="props.form.status" :disabled="true">
+                    <Select v-model="form.status" :disabled="true">
                         <SelectTrigger class="col-span-3 w-full">
                             <SelectValue placeholder="Select a fruit">
-                                {{
-                                    translateAndFormatStatus(props.form.status)
-                                }}
+                                {{ translateAndFormatStatus(form.status) }}
                             </SelectValue>
                         </SelectTrigger>
                         <SelectContent>

@@ -38,14 +38,11 @@ const page = usePage<{
 // Auth user object
 const user = computed(() => page.props.auth?.user);
 
-// Create travel request dialog form
-const form = useForm({
-    solicitorId: user.value.id,
-    destination: "",
-    departureDate: "",
-    returnDate: "",
-    status: "solicited",
-});
+const createTravelRequestFormDialogToggle = ref(false);
+
+function createTravelRequestHandler() {
+    createTravelRequestFormDialogToggle.value = true;
+}
 
 // Triggers a success toast whenever the user logs in and gets redirected to the dashboard
 watch(
@@ -66,13 +63,17 @@ watch(
             <Header v-slot:header text="Dashboard" />
         </template>
 
+        <Button @click="createTravelRequestHandler"
+            >Novo pedido de viagem</Button
+        >
+
         <CreateTravelRequestDialog
             v-bind:user="user"
             v-bind:errors="props.errors"
-            v-bind:form="form"
-        >
-            <Button>Novo pedido de viagem</Button>
-        </CreateTravelRequestDialog>
+            v-model:create-travel-request-dialog-toggle="
+                createTravelRequestFormDialogToggle
+            "
+        />
 
         <DataTable
             v-bind:errors="props.errors"
