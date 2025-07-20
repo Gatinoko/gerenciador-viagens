@@ -16,8 +16,6 @@ import Header from "@/components/Header.vue";
 import CreateTravelRequestDialog from "@/components/CreateTravelRequestDialog.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import { computed, ref, watch } from "vue";
-import axios from "axios";
-import ViewTravelRequestDialog from "@/components/ViewTravelRequestDialog.vue";
 import DataTable from "@/components/ui/data-table/DataTable.vue";
 import { columns } from "@/components/ui/data-table/columns";
 

@@ -27,7 +27,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { computed, reactive, ref, watch } from "vue";
+import { computed, watch } from "vue";
 import { translateAndFormatStatus } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import type { CancellationRequestWithTravelRequest } from "resources/types/CancellationRequest";

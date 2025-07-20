@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
-import {
-    DateFormatter,
-    type DateValue,
-    getLocalTimeZone,
-    parseDate,
-} from "@internationalized/date";
+import { DateFormatter, getLocalTimeZone } from "@internationalized/date";
 import { CalendarIcon } from "lucide-vue-next";
 import {
     Dialog,
