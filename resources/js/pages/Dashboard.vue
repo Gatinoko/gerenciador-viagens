@@ -19,7 +19,6 @@ import { computed, ref, watch } from "vue";
 import DataTable from "@/components/ui/data-table/DataTable.vue";
 import { columns } from "@/components/ui/data-table/columns";
 
-// Props
 const props = defineProps({
     appName: String,
     userRequests: Array,
@@ -33,7 +32,6 @@ const page = usePage<{
     };
 }>();
 
-// Auth user object
 const user = computed(() => page.props.auth?.user);
 
 const createTravelRequestFormDialogToggle = ref(false);

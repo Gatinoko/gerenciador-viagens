@@ -99,7 +99,6 @@ watch(
                 </DialogDescription>
             </DialogHeader>
             <form @submit.prevent="submit" class="grid gap-1.5 py-4" novalidate>
-                <!-- Solicitor ID field (read only) -->
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorId"> ID Solicitante </Label>
                     <Input
@@ -247,7 +246,6 @@ watch(
                 </div>
             </form>
             <DialogFooter>
-                <!-- Form submit button -->
                 <Button @click="submit" variant="destructive" class="w-full">
                     Solicitar cancelamento
                 </Button>
