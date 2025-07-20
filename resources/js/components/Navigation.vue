@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { PageProps } from "@inertiajs/core";
 import { ShieldUser } from "lucide-vue-next";
 import {
     Tooltip,
@@ -10,10 +11,17 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-const props = defineProps<{ appName: string; errors: Object }>();
-const user = computed(() => page.props.auth?.user);
+import type { User } from "resources/types/User";
 
-const props = defineProps({ appName: String, errors: Object });
+const props = defineProps<{ appName: string; errors: Object }>();
+const page = usePage<
+    PageProps & {
+        auth: {
+            user: User;
+        };
+    }
+>();
+const user = computed(() => page.props.auth?.user);
 </script>
 
 <template>
