@@ -48,7 +48,7 @@ watch(
             <Header v-slot:header text="Dashboard de Administradores" />
         </template>
         <Tabs default-value="travel-requests">
-            <TabsList>
+            <TabsList class="w-full">
                 <TabsTrigger value="travel-requests">
                     Travel Requests
                 </TabsTrigger>
