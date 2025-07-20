@@ -1,11 +1,26 @@
-import type { User } from "./user";
+import type { User } from "./User";
+
+export type TravelRequestStatus = "solicited" | "approved" | "cancelled";
 
 export type TravelRequest = {
     id: number;
-    solicitorId: number;
+    solicitor_id: number;
     destination: string;
-    departureDate: string;
-    returnDate: string;
+    departure_date: string;
+    return_date: string;
+    status: TravelRequestStatus;
+    created_at: string;
+    updated_at: string;
+};
+
+export type TravelRequestWithUser = {
+    id: number;
+    solicitor_id: number;
+    destination: string;
+    departure_date: string;
+    return_date: string;
+    status: TravelRequestStatus;
+    created_at: string;
+    updated_at: string;
     user: User;
-    status: "solicited" | "approved" | "cancelled";
 };
