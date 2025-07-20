@@ -2,8 +2,8 @@ import DropdownAction from "./DataTableDropdown.vue";
 import { formatDbDate, translateAndFormatStatus } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/vue-table";
 import { h } from "vue";
-import type { TravelRequest } from "@/../types/travelRequest";
-import type { User } from "@/../types/user";
+import type { TravelRequest } from "resources/types/TravelRequest";
+import type { User } from "resources/types/User";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, ChevronDown } from "lucide-vue-next";
 
