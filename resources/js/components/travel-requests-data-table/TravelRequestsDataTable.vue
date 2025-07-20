@@ -79,6 +79,7 @@ const table = useVueTable({
     },
 });
 </script>
+
 <template>
     <div class="flex items-center py-4 w-full gap-6 h-max">
         <div class="grid gap-0.5 w-full">
