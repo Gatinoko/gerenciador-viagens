@@ -36,11 +36,13 @@ import {
 } from "@/components/ui/select";
 import { computed, reactive, ref, watch } from "vue";
 import { translateAndFormatStatus } from "@/lib/utils";
+import type { User } from "resources/types/User";
 
-const props = defineProps({
-    errors: Object,
-    user: Object,
-    form: Object,
+const props = defineProps<{
+    errors: Object;
+    user: User;
+    createTravelRequestDialogToggle: boolean;
+}>();
 const emits = defineEmits(["update:createTravelRequestDialogToggle"]);
 
 const createTravelRequestDialogToggle = computed({

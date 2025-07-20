@@ -13,13 +13,14 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ref } from "vue";
+import type { TravelRequestWithUser } from "resources/types/TravelRequest";
 
-const props = defineProps({
-    travelRequestInfo: Object,
-    travelRequestUpdateControlsToggle: Boolean,
-    travelRequestSolicitCancellationControlsToggle: Boolean,
-    errors: Object,
-});
+const props = defineProps<{
+    travelRequestInfo: TravelRequestWithUser;
+    travelRequestUpdateControlsToggle: boolean;
+    travelRequestSolicitCancellationControlsToggle: boolean;
+    errors: Object;
+}>();
 
 const travelRequestInfoDialogToggle = ref(false);
 const travelRequestStatusUpdateDialogToggle = ref(false);

@@ -37,12 +37,13 @@ import {
 import { computed, reactive, ref, watch } from "vue";
 import { translateAndFormatStatus } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import type { TravelRequestWithUser } from "resources/types/TravelRequest";
 
-const props = defineProps({
-    travelRequestData: Object,
-    solicitTravelRequestCancellationFormDialogToggle: Boolean,
-    errors: Object,
-});
+const props = defineProps<{
+    travelRequestData: TravelRequestWithUser;
+    solicitTravelRequestCancellationFormDialogToggle: boolean;
+    errors: Object;
+}>();
 
 const emits = defineEmits([
     "update:solicitTravelRequestCancellationFormDialogToggle",

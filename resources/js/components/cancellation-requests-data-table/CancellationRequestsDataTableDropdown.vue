@@ -13,11 +13,12 @@ import {
 import { computed, ref } from "vue";
 import UpdateTravelRequestCancellationDialog from "../UpdateTravelRequestCancellationDialog.vue";
 import ViewTravelRequestCancellationDialog from "../ViewTravelRequestCancellationDialog.vue";
+import type { CancellationRequestWithTravelRequestWithUser } from "resources/types/CancellationRequest";
 
-const props = defineProps({
-    cancellationRequestInfo: Object,
-    errors: Object,
-});
+const props = defineProps<{
+    cancellationRequestInfo: CancellationRequestWithTravelRequestWithUser;
+    errors: Object;
+}>();
 
 const associatedTravelRequestInfoDialogToggle = ref(false);
 const cancellationRequestStatusUpdateDialogToggle = ref(false);

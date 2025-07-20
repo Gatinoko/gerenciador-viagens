@@ -30,12 +30,12 @@ import {
 import { computed, reactive, ref, watch } from "vue";
 import { translateAndFormatStatus } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import type { CancellationRequestWithTravelRequest } from "resources/types/CancellationRequest";
 
-const props = defineProps({
-    cancellationRequestData: Object,
-    travelRequestCancellationStatusUpdateDialogToggle: Boolean,
-    errors: Object,
-});
+const props = defineProps<{
+    cancellationRequestData: CancellationRequestWithTravelRequest;
+    travelRequestCancellationStatusUpdateDialogToggle: boolean;
+}>();
 const emits = defineEmits([
     "update:travelRequestCancellationStatusUpdateDialogToggle",
 ]);

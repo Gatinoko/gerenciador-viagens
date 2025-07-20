@@ -19,11 +19,12 @@ import {
 } from "@/components/ui/select";
 import { computed } from "vue";
 import { translateAndFormatStatus } from "@/lib/utils";
+import type { CancellationRequestWithTravelRequestWithUser } from "../../types/CancellationRequest";
 
-const props = defineProps({
-    cancellationRequestData: Object,
-    cancellationRequestInfoDialogToggle: Boolean,
-});
+const props = defineProps<{
+    cancellationRequestData: CancellationRequestWithTravelRequestWithUser;
+    cancellationRequestInfoDialogToggle: boolean;
+}>();
 const emits = defineEmits(["update:cancellationRequestInfoDialogToggle"]);
 
 const cancellationRequestInfoDialogToggle = computed({

@@ -10,8 +10,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-
-const page = usePage();
+const props = defineProps<{ appName: string; errors: Object }>();
 const user = computed(() => page.props.auth?.user);
 
 const props = defineProps({ appName: String, errors: Object });

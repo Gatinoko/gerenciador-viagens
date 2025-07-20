@@ -30,11 +30,12 @@ import {
 import { computed } from "vue";
 import { translateAndFormatStatus } from "@/lib/utils";
 import { useForm } from "@inertiajs/vue3";
+import type { TravelRequestWithUser } from "resources/types/TravelRequest";
 
-const props = defineProps({
-    travelRequestData: Object,
-    travelRequestStatusUpdateDialogToggle: Boolean,
-});
+const props = defineProps<{
+    travelRequestData: TravelRequestWithUser;
+    travelRequestStatusUpdateDialogToggle: boolean;
+}>();
 const emits = defineEmits(["update:travelRequestStatusUpdateDialogToggle"]);
 
 const travelRequestInfoDialogToggle = computed({

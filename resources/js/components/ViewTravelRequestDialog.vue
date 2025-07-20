@@ -28,12 +28,12 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { computed } from "vue";
-import { translateStatus, translateAndFormatStatus } from "@/lib/utils";
+import type { TravelRequestWithUser } from "resources/types/TravelRequest";
 
-const props = defineProps({
-    travelRequestData: Object,
-    travelRequestInfoDialogToggle: Boolean,
-});
+const props = defineProps<{
+    travelRequestData: TravelRequestWithUser;
+    travelRequestInfoDialogToggle: boolean;
+}>();
 const emits = defineEmits(["update:travelRequestInfoDialogToggle"]);
 
 const travelRequestInfoDialogToggle = computed({
