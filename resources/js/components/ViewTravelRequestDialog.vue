@@ -28,6 +28,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { computed } from "vue";
+import { translateAndFormatStatus } from "@/lib/utils";
 import type { TravelRequestWithUser } from "resources/types/TravelRequest";
 
 const props = defineProps<{
@@ -58,7 +59,7 @@ const dateFormatter = new DateFormatter("pt-BR", {
                     {{ travelRequestData.user.name }}.
                 </DialogDescription>
             </DialogHeader>
-            <form @submit.prevent="submit" class="grid gap-1.5 py-4" novalidate>
+            <form class="grid gap-1.5 py-4" novalidate>
                 <div class="grid grid-cols-4 gap-0.5">
                     <Label for="solicitorId"> ID Solicitante </Label>
                     <Input
